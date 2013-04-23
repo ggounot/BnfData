@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Données BnF</string>
+
+    <string name="menu_about">À propos</string>
+
+    <string name="search_hint">Rechercher un auteur, une œuvre ou une organisation</string>
+    <string name="no_result">Aucun résultat.</string>
+    <string name="image_description">Illustration</string>
+    <string name="query_too_short">Votre requête doit comporter au moins 4 caractères.</string>
+	<string name="retry">Réessayer</string>
+
+    <string name="instructions">Recherchez un auteur, une œuvre ou une organisation en cliquant sur la loupe en haut à droite.</string>
+	<string name="generalities">Données BnF permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
+	<string name="limitations">Cette application permet de consulter uniquement les données proposées au format JSON sur <a href="http://data.bnf.fr/">data.bnf.fr</a>. Malheureusement, celles-ci ne représentent qu’une petite partie de l’ensemble des données ouvertes de la BnF.</string>
+	<string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>
+
+    <string name="errmsg_no_network_connection">Vous n’êtes pas connecté à Internet.</string>
+    <string name="errmsg_data_retrieval_failed">Une erreur s’est produite lors de la récupération des données.</string>
+
+    <string name="category_person">auteur</string>
+    <string name="category_organization">organisation</string>
+    <string name="category_work">œuvre</string>
+    <string name="category_theme">thème</string>
+    <string name="category_unknown">type d’objet inconnu</string>
+
+    <string name="title_activity_searchable">Résultats de la recherche</string>
+    <string name="title_activity_view_author">Auteur</string>
+    <string name="title_activity_view_organization">Organisation</string>
+    <string name="title_activity_view_work">Œuvre</string>
+    <string name="title_activity_about">À propos de Données BnF</string>
+
+    <string name="informations_header">INFORMATIONS</string>
+    <string name="works_header">ŒUVRES LES PLUS ÉTUDIÉES</string>
+    <string name="contributors_header">CONTRIBUTEURS</string>
+    <string name="generalities_header">GÉNÉRALITÉS</string>
+    <string name="limitations_header">LIMITATIONS</string>
+    <string name="source_code_header">CODE SOURCE</string>
+
+    <string name="birthdate_label">Naissance</string>
+    <string name="deathdate_label">Décès</string>
+    <string name="languages_label">Langue</string>
+    <string name="nationalities_label">Pays</string>
+    <string name="startdate_label">Création</string>
+    <string name="stopdate_label">Fin d’activité</string>
+    <string name="notes_label">Notes</string>
+
+</resources>
