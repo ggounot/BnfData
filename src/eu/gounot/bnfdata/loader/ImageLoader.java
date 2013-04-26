@@ -64,7 +64,6 @@ public class ImageLoader extends AsyncTaskLoader<Bitmap> {
             height = Math.round(height * ratio);
 
             // Resize the bitmap with the new dimensions.
-        
             bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
         } catch (FileNotFoundException e) {
             // 404 happens. bitmap remains null and the default image will be displayed.
