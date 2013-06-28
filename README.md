@@ -8,3 +8,12 @@ This repository contains the source code of the *Données BnF* Android app.
   <img alt="Get it on Google Play"
        src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
 </a>
+
+## Base de données
+
+La base de données est trop volumineuse pour être incluse dans le dépôt. Vous pouvez la
+télécharger à l’URL suivante : http://bnfdata.gounot.eu/database/
+
+Il suffit de la copier sans la renommer dans le répertoire *assets* pour qu’elle soit incluse
+dans le fichier APK.
+
