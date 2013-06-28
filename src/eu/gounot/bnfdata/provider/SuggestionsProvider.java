@@ -46,6 +46,13 @@ public class SuggestionsProvider extends ContentProvider {
     private static final String HAVING = COL_FORM_TYPE + " = MIN(" + COL_FORM_TYPE + ")";
     private static final String ORDER_BY = COL_OBJECT_TYPE + " ASC, " + COL_FORM + " ASC";
 
+    // Cursor's columns.
+    public static final int CURSOR_COL_ID = 0; // _ID
+    public static final int CURSOR_COL_FORM = 1; // SUGGEST_COLUMN_TEXT_1
+    public static final int CURSOR_COL_OBJECT_TYPE_LABEL = 2; // SUGGEST_COLUMN_TEXT_2
+    public static final int CURSOR_COL_ARK_NAME = 3; // SUGGEST_COLUMN_INTENT_DATA
+    public static final int CURSOR_COL_OBJECT_TYPE = 4; // SUGGEST_COLUMN_INTENT_EXTRA_DATA
+
     // Content provider settings.
     public static final String AUTHORITY = "eu.gounot.bnfdata.provider.SuggestionsProvider";
     public static final String SEARCH_URI_PATH_QUERY = "search_query";
