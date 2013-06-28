@@ -18,8 +18,8 @@
         android:theme="@style/AppTheme" >
 
         <provider
-            android:name="eu.gounot.bnfdata.provider.SearchResultsProvider"
-            android:authorities="eu.gounot.bnfdata.provider.SearchResultsProvider"
+            android:name="eu.gounot.bnfdata.provider.SuggestionsProvider"
+            android:authorities="eu.gounot.bnfdata.provider.SuggestionsProvider"
             android:exported="false" >
         </provider>
 
