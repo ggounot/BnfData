@@ -153,13 +153,12 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             Log.d(TAG, "onCreateLoader()");
         }
 
-        // Append the search input to the content search URI.
-        Uri uri = Uri.withAppendedPath(SearchResultsProvider.CONTENT_SEARCH_URI,
-                Uri.encode(mFilter));
+        String selection = getResources().getString(R.string.suggest_selection);
+        String[] selectionArgs = new String[] { mFilter };
 
-        // Load and return the cursor. No projection nor selection needed because the
-        // ContentProvider gets and returns the same data and cursor as for the suggestions.
-        return new CursorLoader(getBaseContext(), uri, null, null, null, null);
+        // Load and return the cursor.
+        return new CursorLoader(getBaseContext(), SuggestionsProvider.CONTENT_SEARCH_URI, null,
+                selection, selectionArgs, null);
     }
 
     @Override
