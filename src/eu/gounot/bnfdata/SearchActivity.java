@@ -92,8 +92,8 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
 
         // Get the type and the URL of the selected object.
         Cursor cursor = mAdapter.getCursor();
-        int object_type = cursor.getInt(SearchResultsProvider.CURSOR_COLUMN_RAW_CATEGORY);
-        String url = cursor.getString(SearchResultsProvider.CURSOR_COLUMN_URL);
+        int object_type = cursor.getInt(SuggestionsProvider.CURSOR_COL_OBJECT_TYPE);
+        String url = cursor.getString(SuggestionsProvider.CURSOR_COL_ARK_NAME);
 
         // Start the appropriate activity to view the object.
         startAppropriateActivity(object_type, url);
