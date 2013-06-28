@@ -157,8 +157,8 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
         String[] selectionArgs = new String[] { mFilter };
 
         // Load and return the cursor.
-        return new CursorLoader(getBaseContext(), SuggestionsProvider.CONTENT_SEARCH_URI, null,
-                selection, selectionArgs, null);
+        return new CursorLoader(getApplicationContext(), SuggestionsProvider.CONTENT_SEARCH_URI,
+                null, selection, selectionArgs, null);
     }
 
     @Override
