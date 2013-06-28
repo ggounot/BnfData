@@ -7,6 +7,7 @@
     
     <dimen name="section_header_width">2000dp</dimen>
     <dimen name="main_activity_drawable_padding">30dp</dimen>
+    <dimen name="db_installation_title_bottom_margin">16dp</dimen>
     <dimen name="object_image_container_width">72dp</dimen>
     <dimen name="object_image_container_height">102dp</dimen>
     <dimen name="object_image_max_width">70dp</dimen>

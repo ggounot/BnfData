@@ -12,6 +12,13 @@
 	<string name="retry">Réessayer</string>
 
     <string name="instructions">Recherchez un auteur, une œuvre ou une organisation en cliquant sur la loupe en haut à droite.</string>
+
+    <string name="db_installation_title">Finalisation de l’installation</string>
+    <string name="db_installation_wait">Veuillez patienter…</string>
+    <string name="db_installation_uncompress">Décompression de la base de suggestions…</string>
+    <string name="db_installation_percentage">0</string>
+    <string name="db_installation_percent_sign">%</string>
+
 	<string name="generalities">Données BnF permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
 	<string name="limitations">Cette application permet de consulter uniquement les données proposées au format JSON sur <a href="http://data.bnf.fr/">data.bnf.fr</a>. Malheureusement, celles-ci ne représentent qu’une petite partie de l’ensemble des données ouvertes de la BnF.</string>
 	<string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>

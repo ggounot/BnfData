@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin" >
+
+    <TextView
+        android:id="@+id/db_installation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/db_installation_title_bottom_margin"
+        android:text="@string/db_installation_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/light_blue"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/db_installation_wait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/db_installation_title"
+        android:text="@string/db_installation_wait"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ProgressBar
+        android:id="@+id/db_installation_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/db_installation_wait" />
+
+    <TextView
+        android:id="@+id/db_installation_uncompress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/db_installation_progressbar"
+        android:text="@string/db_installation_uncompress"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/db_install_percent_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/db_installation_uncompress"
+        android:layout_alignParentRight="true"
+        android:text="@string/db_installation_percent_sign"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/db_installation_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/db_installation_uncompress"
+        android:layout_toLeftOf="@id/db_install_percent_sign"
+        android:text="@string/db_installation_percentage"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold" />
+
+</RelativeLayout>
