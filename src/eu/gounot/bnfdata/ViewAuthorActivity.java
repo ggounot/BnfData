@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import eu.gounot.bnfdata.loadercallbacks.AuthorDataLoaderCallbacks;
+import eu.gounot.bnfdata.util.Constants;
 
 public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemClickListener,
         OnClickListener {
@@ -99,11 +100,11 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mImageProgressBar = (ProgressBar) findViewById(R.id.image_progress_bar);
 
-        // Get the author's URL from the intent.
-        String authorUrl = getIntent().getDataString();
+        // Get the ARK name from the intent.
+        String arkName = getIntent().getExtras().getString(Constants.INTENT_ARK_NAME_KEY);
 
         // Initialize the data loader with its callbacks.
-        mDataLoaderCallbacks = new AuthorDataLoaderCallbacks(this, authorUrl);
+        mDataLoaderCallbacks = new AuthorDataLoaderCallbacks(this, arkName);
         getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);
     }
 

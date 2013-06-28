@@ -24,6 +24,7 @@ import eu.gounot.bnfdata.R;
 import eu.gounot.bnfdata.ViewWorkActivity;
 import eu.gounot.bnfdata.ViewWorkActivity.Contributor;
 import eu.gounot.bnfdata.loader.DataLoader;
+import eu.gounot.bnfdata.util.Constants;
 import eu.gounot.bnfdata.util.NetworkState;
 
 public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
@@ -35,18 +36,18 @@ public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
     private View mProgressBar;
     private View mNetworkErrorView;
     private ListView mListView;
-    private String mWorkUrl;
+    private String mArkName;
 
-    public WorkDataLoaderCallbacks(ViewWorkActivity activity, String workUrl) {
+    public WorkDataLoaderCallbacks(ViewWorkActivity activity, String arkName) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "WorkDataLoaderCallbacks() workUrl=" + workUrl);
+            Log.d(TAG, "WorkDataLoaderCallbacks() arkName=" + arkName);
         }
 
         mActivity = activity;
         mResources = activity.getResources();
         mProgressBar = activity.getProgressBar();
         mListView = activity.getListView();
-        mWorkUrl = workUrl;
+        mArkName = arkName;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
             Log.d(TAG, "onCreateLoader()");
         }
 
-        return new DataLoader(mActivity, mWorkUrl);
+        return new DataLoader(mActivity, Constants.OBJECT_TYPE_WORK, mArkName);
     }
 
     @Override

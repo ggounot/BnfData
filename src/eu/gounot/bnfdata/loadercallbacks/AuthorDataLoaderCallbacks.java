@@ -25,6 +25,7 @@ import eu.gounot.bnfdata.R;
 import eu.gounot.bnfdata.ViewAuthorActivity;
 import eu.gounot.bnfdata.ViewAuthorActivity.Work;
 import eu.gounot.bnfdata.loader.DataLoader;
+import eu.gounot.bnfdata.util.Constants;
 import eu.gounot.bnfdata.util.NetworkState;
 
 public class AuthorDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
@@ -37,17 +38,17 @@ public class AuthorDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
     private View mProgressBar;
     private View mNetworkErrorView;
     private ListView mListView;
-    private String mAuthorUrl;
+    private String mArkName;
 
-    public AuthorDataLoaderCallbacks(ViewAuthorActivity activity, String authorUrl) {
+    public AuthorDataLoaderCallbacks(ViewAuthorActivity activity, String arkName) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "AuthorDataLoaderCallbacks() authorUrl=" + authorUrl);
+            Log.d(TAG, "AuthorDataLoaderCallbacks() arkName=" + arkName);
         }
 
         mActivity = activity;
         mProgressBar = activity.getProgressBar();
         mListView = activity.getListView();
-        mAuthorUrl = authorUrl;
+        mArkName = arkName;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class AuthorDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
             Log.d(TAG, "onCreateLoader()");
         }
 
-        return new DataLoader(mActivity, mAuthorUrl);
+        return new DataLoader(mActivity, Constants.OBJECT_TYPE_PERSON, mArkName);
     }
 
     @Override

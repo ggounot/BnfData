@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import eu.gounot.bnfdata.loadercallbacks.OrganizationDataLoaderCallbacks;
+import eu.gounot.bnfdata.util.Constants;
 
 public class ViewOrganizationActivity extends BnfDataBaseActivity implements OnClickListener {
 
@@ -78,11 +79,11 @@ public class ViewOrganizationActivity extends BnfDataBaseActivity implements OnC
         mImageProgressBar = (ProgressBar) findViewById(R.id.image_progress_bar);
         mScrollView = findViewById(R.id.scrollview);
 
-        // Get the organization's URL from the intent.
-        String organizationUrl = getIntent().getDataString();
+        // Get the ARK name from the intent.
+        String arkName = getIntent().getExtras().getString(Constants.INTENT_ARK_NAME_KEY);
 
         // Initialize the data loader with its callbacks.
-        mDataLoaderCallbacks = new OrganizationDataLoaderCallbacks(this, organizationUrl);
+        mDataLoaderCallbacks = new OrganizationDataLoaderCallbacks(this, arkName);
         getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);
     }
 

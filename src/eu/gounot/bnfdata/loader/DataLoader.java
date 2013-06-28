@@ -10,28 +10,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.gounot.bnfdata.BuildConfig;
-import eu.gounot.bnfdata.util.BnfDataWebsite;
+import eu.gounot.bnfdata.util.DataServer;
 
 public class DataLoader extends AsyncTaskLoader<JSONObject> {
 
     private static final String TAG = "DataLoader";
 
-    private String mJsonUrl;
+    private int mObjectType;
+    private String mArkName;
     private JSONObject mJsonObject;
 
-    public DataLoader(Context context, String objectUrl) {
+    public DataLoader(Context context, int objectType, String arkName) {
         super(context);
 
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "DataLoader() objectUrl=" + objectUrl);
+            Log.d(TAG, "DataLoader() objectType=" + objectType + " arkName=" + arkName);
         }
 
-        // Remove the potential trailing '/' and add the .json extension
-        // to obtain the URL of the JSON.
-        if (objectUrl.length() > 0 && objectUrl.charAt(objectUrl.length() - 1) == '/') {
-            objectUrl = objectUrl.substring(0, objectUrl.length() - 1);
-        }
-        mJsonUrl = objectUrl + ".json";
+        mObjectType = objectType;
+        mArkName = arkName;
     }
 
     @Override
@@ -43,8 +40,8 @@ public class DataLoader extends AsyncTaskLoader<JSONObject> {
         JSONObject jsonObject = null;
 
         try {
-            // Try to download the JSON object from the BnF data website.
-            jsonObject = BnfDataWebsite.getObject(mJsonUrl);
+            // Try to download the JSON object from the data server.
+            jsonObject = DataServer.getJsonObject(mObjectType, mArkName);
         } catch (IOException e) {
             Log.e(TAG, e.toString(), e);
         } catch (JSONException e) {

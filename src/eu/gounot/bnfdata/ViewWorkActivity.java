@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import eu.gounot.bnfdata.loadercallbacks.WorkDataLoaderCallbacks;
+import eu.gounot.bnfdata.util.Constants;
 
 public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClickListener,
         OnClickListener {
@@ -91,11 +92,11 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClick
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mImageProgressBar = (ProgressBar) findViewById(R.id.image_progress_bar);
 
-        // Get the work's URL from the intent.
-        String workUrl = getIntent().getDataString();
+        // Get the ARK name from the intent.
+        String arkName = getIntent().getExtras().getString(Constants.INTENT_ARK_NAME_KEY);
 
         // Initialize the data loader with its callbacks.
-        mDataLoaderCallbacks = new WorkDataLoaderCallbacks(this, workUrl);
+        mDataLoaderCallbacks = new WorkDataLoaderCallbacks(this, arkName);
         getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);
     }
 

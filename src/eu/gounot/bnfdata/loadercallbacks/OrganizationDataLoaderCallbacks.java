@@ -22,6 +22,7 @@ import eu.gounot.bnfdata.BuildConfig;
 import eu.gounot.bnfdata.R;
 import eu.gounot.bnfdata.ViewOrganizationActivity;
 import eu.gounot.bnfdata.loader.DataLoader;
+import eu.gounot.bnfdata.util.Constants;
 import eu.gounot.bnfdata.util.NetworkState;
 
 public class OrganizationDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
@@ -34,17 +35,17 @@ public class OrganizationDataLoaderCallbacks implements LoaderCallbacks<JSONObje
     private View mProgressBar;
     private View mNetworkErrorView;
     private View mScrollView;
-    private String mOrganizationUrl;
+    private String mArkName;
 
-    public OrganizationDataLoaderCallbacks(ViewOrganizationActivity activity, String organizationUrl) {
+    public OrganizationDataLoaderCallbacks(ViewOrganizationActivity activity, String arkName) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "OrganizationDataLoaderCallbacks() organizationUrl=" + organizationUrl);
+            Log.d(TAG, "OrganizationDataLoaderCallbacks() arkName=" + arkName);
         }
 
         mActivity = activity;
         mProgressBar = activity.getProgressBar();
         mScrollView = activity.getScrollView();
-        mOrganizationUrl = organizationUrl;
+        mArkName = arkName;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class OrganizationDataLoaderCallbacks implements LoaderCallbacks<JSONObje
             Log.d(TAG, "onCreateLoader()");
         }
 
-        return new DataLoader(mActivity, mOrganizationUrl);
+        return new DataLoader(mActivity, Constants.OBJECT_TYPE_ORGANIZATION, mArkName);
     }
 
     @Override
