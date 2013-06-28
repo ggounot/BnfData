@@ -6,14 +6,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import eu.gounot.bnfdata.BuildConfig;
+import eu.gounot.bnfdata.util.Constants;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseOpenHelper";
 
     public DatabaseOpenHelper(Context context) {
-        super(context.getApplicationContext(), DatabaseConstants.DB_FILENAME, null,
-                DatabaseConstants.DB_VERSION);
+        super(context.getApplicationContext(), Constants.DB_FILENAME, null,
+                Constants.DB_VERSION);
 
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "DatabaseOpenHelper()");

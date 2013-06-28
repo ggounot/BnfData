@@ -16,6 +16,7 @@ import android.os.Build;
 import android.util.Log;
 
 import eu.gounot.bnfdata.BuildConfig;
+import eu.gounot.bnfdata.util.Constants;
 
 public class DatabaseInstallationTask extends AsyncTask<Void, Integer, Boolean> {
 
@@ -36,18 +37,18 @@ public class DatabaseInstallationTask extends AsyncTask<Void, Integer, Boolean> 
     public DatabaseInstallationTask(Context context,
             DatabaseInstallationListener dbInstallationListener) {
         mApplicationContext = context.getApplicationContext();
-        mPreferences = mApplicationContext.getSharedPreferences(DatabaseConstants.PREFS_FILE_NAME,
+        mPreferences = mApplicationContext.getSharedPreferences(Constants.PREFS_FILE_NAME,
                 Context.MODE_PRIVATE);
         mPrefsEditor = mPreferences.edit();
         mDatabaseDir = mApplicationContext.getApplicationInfo().dataDir + "/databases";
-        mDatabasePath = mDatabaseDir + "/" + DatabaseConstants.DB_FILENAME;
+        mDatabasePath = mDatabaseDir + "/" + Constants.DB_FILENAME;
         attach(dbInstallationListener);
     }
 
     public void attach(DatabaseInstallationListener databaseInstallListener) {
         // Attach the listener to this task.
         mDbInstallationListener = databaseInstallListener;
-        if (mProgress >= DatabaseConstants.PROGRESS_MAX) {
+        if (mProgress >= Constants.PROGRESS_MAX) {
             mDbInstallationListener.onDatabaseInstallationComplete();
         }
     }
@@ -76,7 +77,7 @@ public class DatabaseInstallationTask extends AsyncTask<Void, Integer, Boolean> 
 
             // Open the i/o streams.
             is = mApplicationContext.getAssets().open(
-                    DatabaseConstants.ASSETS_COMPRESSED_DB_FILENAME);
+                    Constants.ASSETS_COMPRESSED_DB_FILENAME);
             gzis = new GZIPInputStream(new BufferedInputStream(is));
             os = new FileOutputStream(mDatabasePath);
 
@@ -92,7 +93,7 @@ public class DatabaseInstallationTask extends AsyncTask<Void, Integer, Boolean> 
                 os.write(buffer, 0, length);
                 copiedBytes += length;
                 // Compute the percentage of copied bytes as progress.
-                progress = (int) ((copiedBytes / (float) DatabaseConstants.UNCOMPRESSED_DB_SIZE) * DatabaseConstants.PROGRESS_MAX);
+                progress = (int) ((copiedBytes / (float) Constants.UNCOMPRESSED_DB_SIZE) * Constants.PROGRESS_MAX);
                 // Publish the progress.
                 if (progress != oldProgress) {
                     publishProgress(progress);
@@ -144,11 +145,11 @@ public class DatabaseInstallationTask extends AsyncTask<Void, Integer, Boolean> 
 
         // Mark the database installation as aborted before the copy in the event that the copy is
         // actually aborted.
-        mPrefsEditor.putInt(DatabaseConstants.PREF_DB_STATE_KEY,
-                DatabaseConstants.DB_INSTALL_ABORTED);
+        mPrefsEditor.putInt(Constants.PREF_DB_STATE_KEY,
+                Constants.DB_INSTALL_ABORTED);
 
         // Mark the database version number that will be copied.
-        mPrefsEditor.putInt(DatabaseConstants.PREF_DB_VERSION_KEY, DatabaseConstants.DB_VERSION);
+        mPrefsEditor.putInt(Constants.PREF_DB_VERSION_KEY, Constants.DB_VERSION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             mPrefsEditor.apply();
@@ -180,7 +181,7 @@ public class DatabaseInstallationTask extends AsyncTask<Void, Integer, Boolean> 
         }
 
         // Mark the database installation as completed.
-        mPrefsEditor.putInt(DatabaseConstants.PREF_DB_STATE_KEY, DatabaseConstants.DB_INSTALLED);
+        mPrefsEditor.putInt(Constants.PREF_DB_STATE_KEY, Constants.DB_INSTALLED);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             mPrefsEditor.apply();

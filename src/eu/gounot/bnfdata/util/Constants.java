@@ -1,6 +1,6 @@
-package eu.gounot.bnfdata.database;
+package eu.gounot.bnfdata.util;
 
-public class DatabaseConstants {
+public class Constants {
 
     public static final String ASSETS_COMPRESSED_DB_FILENAME = "suggestions.jpg";
     public static final String DB_FILENAME = "suggestions.db";
@@ -16,4 +16,6 @@ public class DatabaseConstants {
     public static final int DB_NOT_INSTALLED = 0;
     public static final int DB_INSTALL_ABORTED = 1;
     public static final int DB_INSTALLED = 2;
+
+    public static final String INTENT_ARK_NAME_KEY = "arkname";
 }

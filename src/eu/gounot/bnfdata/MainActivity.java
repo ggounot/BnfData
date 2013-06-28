@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 
-import eu.gounot.bnfdata.database.DatabaseConstants;
 import eu.gounot.bnfdata.database.DatabaseInstallationListener;
 import eu.gounot.bnfdata.database.DatabaseInstallationTask;
+import eu.gounot.bnfdata.util.Constants;
 
 public class MainActivity extends BnfDataBaseActivity implements DatabaseInstallationListener {
 
@@ -105,7 +105,7 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
         mDatabaseInstallationTask = (DatabaseInstallationTask) getLastCustomNonConfigurationInstance();
         if (mDatabaseInstallationTask != null) {
             int progress = mDatabaseInstallationTask.getProgress();
-            if (progress < DatabaseConstants.PROGRESS_MAX) {
+            if (progress < Constants.PROGRESS_MAX) {
                 showDatabaseInstallationView();
                 onDatabaseInstallationProgressUpdate(progress);
                 mDatabaseInstallationTask.attach(this);
@@ -124,13 +124,13 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
 
         // Database installation is needed if it was not already fully installed
         // or if the already installed version doesn't match the current one.
-        SharedPreferences preferences = getSharedPreferences(DatabaseConstants.PREFS_FILE_NAME,
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME,
                 Context.MODE_PRIVATE);
-        int dbState = preferences.getInt(DatabaseConstants.PREF_DB_STATE_KEY,
-                DatabaseConstants.DB_NOT_INSTALLED);
-        if (dbState == DatabaseConstants.DB_INSTALLED) {
-            int dbVersion = preferences.getInt(DatabaseConstants.PREF_DB_VERSION_KEY, 0);
-            return (dbVersion != DatabaseConstants.DB_VERSION);
+        int dbState = preferences.getInt(Constants.PREF_DB_STATE_KEY,
+                Constants.DB_NOT_INSTALLED);
+        if (dbState == Constants.DB_INSTALLED) {
+            int dbVersion = preferences.getInt(Constants.PREF_DB_VERSION_KEY, 0);
+            return (dbVersion != Constants.DB_VERSION);
         } else {
             return true;
         }
@@ -160,7 +160,7 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
         // Reference the progress bar for progress updates.
         mProgressBar = (ProgressBar) mDbInstallationView
                 .findViewById(R.id.db_installation_progressbar);
-        mProgressBar.setMax(DatabaseConstants.PROGRESS_MAX);
+        mProgressBar.setMax(Constants.PROGRESS_MAX);
 
         // Reference the percentage view for progress updates.
         mPercentageView = (TextView) mDbInstallationView
