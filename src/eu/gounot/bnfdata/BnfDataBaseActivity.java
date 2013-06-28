@@ -23,6 +23,10 @@ public abstract class BnfDataBaseActivity extends SherlockFragmentActivity imple
 
     private MenuItem mSearchMenuItem;
 
+    protected MenuItem getSearchMenuItem() {
+        return mSearchMenuItem;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
