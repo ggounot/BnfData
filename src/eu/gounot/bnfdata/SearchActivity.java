@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import eu.gounot.bnfdata.provider.SearchResultsProvider;
+import eu.gounot.bnfdata.provider.SuggestionsProvider;
 import eu.gounot.bnfdata.util.NetworkState;
 
 public class SearchActivity extends BnfDataBaseActivity implements OnItemClickListener,
@@ -69,12 +69,13 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
         } else if (Intent.ACTION_VIEW.equalsIgnoreCase(intentAction)) {
             // The user has selected a suggestion.
 
-            // Get the category and the URL of the selected object.
-            String category = intent.getExtras().getString(SearchManager.EXTRA_DATA_KEY);
+            // Get the type and the URL of the selected object.
+            int object_type = Integer.parseInt(intent.getExtras().getString(
+                    SearchManager.EXTRA_DATA_KEY));
             String url = intent.getDataString();
 
             // Start the appropriate activity to view the object and finish the search activity.
-            startAppropriateActivity(category, url);
+            startAppropriateActivity(object_type, url);
             finish();
         } else {
             // The intent action received is not valid.
@@ -89,30 +90,34 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             Log.d(TAG, "onItemClick() position=" + position);
         }
 
-        // Get the category and the URL of the selected object.
+        // Get the type and the URL of the selected object.
         Cursor cursor = mAdapter.getCursor();
-        String category = cursor.getString(SearchResultsProvider.CURSOR_COLUMN_RAW_CATEGORY);
+        int object_type = cursor.getInt(SearchResultsProvider.CURSOR_COLUMN_RAW_CATEGORY);
         String url = cursor.getString(SearchResultsProvider.CURSOR_COLUMN_URL);
 
         // Start the appropriate activity to view the object.
-        startAppropriateActivity(category, url);
+        startAppropriateActivity(object_type, url);
     }
 
-    private void startAppropriateActivity(String category, String url) {
+    private void startAppropriateActivity(int object_type, String url) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "startAppropriateActivity() category=" + category + " url=" + url);
+            Log.d(TAG, "startAppropriateActivity() object_type=" + object_type + " url=" + url);
         }
 
         // Select an appropriate activity to view the selected object.
         Class<?> intentClass;
-        if (category.equalsIgnoreCase(SearchResultsProvider.AUTHOR)) {
+        switch (object_type) {
+        case SuggestionsProvider.PERSON:
             intentClass = ViewAuthorActivity.class;
-        } else if (category.equalsIgnoreCase(SearchResultsProvider.WORK)) {
+            break;
+        case SuggestionsProvider.WORK:
             intentClass = ViewWorkActivity.class;
-        } else if (category.equalsIgnoreCase(SearchResultsProvider.ORGANIZATION)) {
+            break;
+        case SuggestionsProvider.ORGANIZATION:
             intentClass = ViewOrganizationActivity.class;
-        } else {
-            Log.e(TAG, "Category '" + category + "' is not valid.");
+            break;
+        default:
+            Log.e(TAG, "Object type '" + object_type + "' is not valid.");
             return;
         }
 
