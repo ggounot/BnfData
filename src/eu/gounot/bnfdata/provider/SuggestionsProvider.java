@@ -17,12 +17,6 @@ public class SuggestionsProvider extends ContentProvider {
 
     private static final String TAG = "SuggestionsProvider";
 
-    // Object types.
-    public static final int PERSON = 0;
-    public static final int WORK = 1;
-    public static final int ORGANIZATION = 2;
-    public static final int THEME = 3;
-
     // SQLite tables.
     private static final String TABLE_SUGGESTIONS = "suggestions";
     private static final String TABLE_OBJECT_TYPES = "object_types";

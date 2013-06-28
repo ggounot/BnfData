@@ -108,13 +108,13 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
         // Select an appropriate activity to view the selected object.
         Class<?> intentClass;
         switch (objectType) {
-        case SuggestionsProvider.PERSON:
+        case Constants.OBJECT_TYPE_PERSON:
             intentClass = ViewAuthorActivity.class;
             break;
-        case SuggestionsProvider.WORK:
+        case Constants.OBJECT_TYPE_WORK:
             intentClass = ViewWorkActivity.class;
             break;
-        case SuggestionsProvider.ORGANIZATION:
+        case Constants.OBJECT_TYPE_ORGANIZATION:
             intentClass = ViewOrganizationActivity.class;
             break;
         default:

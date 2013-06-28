@@ -17,5 +17,10 @@ public class Constants {
     public static final int DB_INSTALL_ABORTED = 1;
     public static final int DB_INSTALLED = 2;
 
+    public static final int OBJECT_TYPE_PERSON = 0;
+    public static final int OBJECT_TYPE_WORK = 1;
+    public static final int OBJECT_TYPE_ORGANIZATION = 2;
+    public static final int OBJECT_TYPE_THEME = 3;
+
     public static final String INTENT_ARK_NAME_KEY = "arkname";
 }
