@@ -8,7 +8,7 @@
     <string name="search_hint">Rechercher un auteur, une œuvre ou une organisation</string>
     <string name="no_result">Aucun résultat.</string>
     <string name="image_description">Illustration</string>
-    <string name="query_too_short">Votre requête doit comporter au moins 4 caractères.</string>
+    <string name="query_too_short">Votre requête doit comporter au moins 3 caractères.</string>
 	<string name="retry">Réessayer</string>
 
     <string name="instructions">Recherchez un auteur, une œuvre ou une organisation en cliquant sur la loupe en haut à droite.</string>
@@ -52,5 +52,7 @@
     <string name="startdate_label">Création</string>
     <string name="stopdate_label">Fin d’activité</string>
     <string name="notes_label">Notes</string>
+
+    <string name="suggest_selection">suggestions.object_type_id = object_types.id AND suggestions.form MATCH ?</string>
 
 </resources>
