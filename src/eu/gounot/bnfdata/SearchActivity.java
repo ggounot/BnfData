@@ -70,12 +70,12 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             // The user has selected a suggestion.
 
             // Get the type and the URL of the selected object.
-            int object_type = Integer.parseInt(intent.getExtras().getString(
+            int objectType = Integer.parseInt(intent.getExtras().getString(
                     SearchManager.EXTRA_DATA_KEY));
             String url = intent.getDataString();
 
             // Start the appropriate activity to view the object and finish the search activity.
-            startAppropriateActivity(object_type, url);
+            startAppropriateActivity(objectType, url);
             finish();
         } else {
             // The intent action received is not valid.
@@ -92,21 +92,21 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
 
         // Get the type and the URL of the selected object.
         Cursor cursor = mAdapter.getCursor();
-        int object_type = cursor.getInt(SuggestionsProvider.CURSOR_COL_OBJECT_TYPE);
+        int objectType = cursor.getInt(SuggestionsProvider.CURSOR_COL_OBJECT_TYPE);
         String url = cursor.getString(SuggestionsProvider.CURSOR_COL_ARK_NAME);
 
         // Start the appropriate activity to view the object.
-        startAppropriateActivity(object_type, url);
+        startAppropriateActivity(objectType, url);
     }
 
-    private void startAppropriateActivity(int object_type, String url) {
+    private void startAppropriateActivity(int objectType, String url) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "startAppropriateActivity() object_type=" + object_type + " url=" + url);
+            Log.d(TAG, "startAppropriateActivity() objectType=" + objectType + " url=" + url);
         }
 
         // Select an appropriate activity to view the selected object.
         Class<?> intentClass;
-        switch (object_type) {
+        switch (objectType) {
         case SuggestionsProvider.PERSON:
             intentClass = ViewAuthorActivity.class;
             break;
@@ -117,7 +117,7 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             intentClass = ViewOrganizationActivity.class;
             break;
         default:
-            Log.e(TAG, "Object type '" + object_type + "' is not valid.");
+            Log.e(TAG, "Object type '" + objectType + "' is not valid.");
             return;
         }
 
