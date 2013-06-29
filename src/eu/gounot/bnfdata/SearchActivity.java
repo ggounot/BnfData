@@ -3,7 +3,6 @@ package eu.gounot.bnfdata;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
@@ -20,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import eu.gounot.bnfdata.provider.SuggestionsProvider;
+import eu.gounot.bnfdata.util.Constants;
 import eu.gounot.bnfdata.util.NetworkState;
 
 public class SearchActivity extends BnfDataBaseActivity implements OnItemClickListener,
@@ -72,10 +72,10 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             // Get the type and the URL of the selected object.
             int objectType = Integer.parseInt(intent.getExtras().getString(
                     SearchManager.EXTRA_DATA_KEY));
-            String url = intent.getDataString();
+            String arkName = intent.getDataString();
 
             // Start the appropriate activity to view the object and finish the search activity.
-            startAppropriateActivity(objectType, url);
+            startAppropriateActivity(objectType, arkName);
             finish();
         } else {
             // The intent action received is not valid.
@@ -90,18 +90,19 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             Log.d(TAG, "onItemClick() position=" + position);
         }
 
-        // Get the type and the URL of the selected object.
+        // Get the type and the ARK name of the selected object.
         Cursor cursor = mAdapter.getCursor();
         int objectType = cursor.getInt(SuggestionsProvider.CURSOR_COL_OBJECT_TYPE);
-        String url = cursor.getString(SuggestionsProvider.CURSOR_COL_ARK_NAME);
+        String arkName = cursor.getString(SuggestionsProvider.CURSOR_COL_ARK_NAME);
 
         // Start the appropriate activity to view the object.
-        startAppropriateActivity(objectType, url);
+        startAppropriateActivity(objectType, arkName);
     }
 
-    private void startAppropriateActivity(int objectType, String url) {
+    private void startAppropriateActivity(int objectType, String arkName) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "startAppropriateActivity() objectType=" + objectType + " url=" + url);
+            Log.d(TAG, "startAppropriateActivity() objectType=" + objectType + " arkName="
+                    + arkName);
         }
 
         // Select an appropriate activity to view the selected object.
@@ -123,7 +124,7 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
 
         // Make the intent and start the appropriate activity to view the selected object.
         Intent viewObjectIntent = new Intent(this, intentClass);
-        viewObjectIntent.setData(Uri.parse(url));
+        viewObjectIntent.putExtra(Constants.INTENT_ARK_NAME_KEY, arkName);
         startActivity(viewObjectIntent);
     }
 
