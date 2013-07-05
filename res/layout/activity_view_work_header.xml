@@ -64,7 +64,7 @@
         android:id="@+id/languages_label"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         app:layout_columnSpan="2"
-        android:text="@string/languages_label"
+        android:text="@string/language_label"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimary" />
 
