@@ -1,24 +1,19 @@
 package eu.gounot.bnfdata;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import eu.gounot.bnfdata.loadercallbacks.WorkDataLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
 
-public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClickListener,
-        OnClickListener {
+public class ViewWorkActivity extends BnfDataBaseActivity implements OnClickListener {
 
     private static final String TAG = "ViewWorkActivity";
 
@@ -37,7 +32,7 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClick
     private ProgressBar mProgressBar;
     private ProgressBar mImageProgressBar;
     private View mNetworkErrorView;
-    private ListView mListView;
+    private ScrollView mScrollView;
 
     private WorkDataLoaderCallbacks mDataLoaderCallbacks;
 
@@ -49,8 +44,8 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClick
         return mImageProgressBar;
     }
 
-    public ListView getListView() {
-        return mListView;
+    public ScrollView getScrollView() {
+        return mScrollView;
     }
 
     public void setNetworkErrorView(View networkErrorView) {
@@ -67,19 +62,7 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClick
 
         setContentView(R.layout.activity_view_work);
 
-        mListView = (ListView) findViewById(R.id.list);
-
-        // Set up the GridLayout (in which all the TextViews are)
-        // as the ListView's header.
-        View header = View.inflate(this, R.layout.activity_view_work_header, null);
-        mListView.addHeaderView(header, null, false);
-
-        // Set up a transparent footer that serves as a padding between
-        // the ListView's items and the bottom of the screen.
-        View footer = View.inflate(this, R.layout.listview_footer, null);
-        mListView.addFooterView(footer, null, false);
-
-        mListView.setOnItemClickListener(this);
+        mScrollView = (ScrollView) findViewById(R.id.scrollview);
 
         // Reference the views.
         mImageView = (ImageView) findViewById(R.id.image);
@@ -107,20 +90,6 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnItemClick
         mNetworkErrorView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         getSupportLoaderManager().restartLoader(DATA_LOADER, null, mDataLoaderCallbacks);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onItemClick() position=" + position);
-        }
-
-        // Create an intent, put in the selected contributor's URL,
-        // and start the ViewAuthorActivity to view this contributor in detail.
-        Intent intent = new Intent(this, ViewAuthorActivity.class);
-        Contributor contributor = (Contributor) mListView.getAdapter().getItem(position);
-        intent.setData(Uri.parse(contributor.getUrl()));
-        startActivity(intent);
     }
 
     // These methods below are used by the onLoadFinished() callback

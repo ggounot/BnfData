@@ -10,9 +10,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -22,7 +21,6 @@ import org.json.JSONObject;
 import eu.gounot.bnfdata.BuildConfig;
 import eu.gounot.bnfdata.R;
 import eu.gounot.bnfdata.ViewWorkActivity;
-import eu.gounot.bnfdata.ViewWorkActivity.Contributor;
 import eu.gounot.bnfdata.loader.DataLoader;
 import eu.gounot.bnfdata.util.Constants;
 import eu.gounot.bnfdata.util.NetworkState;
@@ -35,7 +33,7 @@ public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
     private Resources mResources;
     private View mProgressBar;
     private View mNetworkErrorView;
-    private ListView mListView;
+    private ScrollView mScrollView;
     private String mArkName;
 
     public WorkDataLoaderCallbacks(ViewWorkActivity activity, String arkName) {
@@ -46,7 +44,7 @@ public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
         mActivity = activity;
         mResources = activity.getResources();
         mProgressBar = activity.getProgressBar();
-        mListView = activity.getListView();
+        mScrollView = activity.getScrollView();
         mArkName = arkName;
     }
 
@@ -169,30 +167,6 @@ public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
             mActivity.setNotes(null);
         }
 
-        // Create an adapter for the contributors list.
-        ArrayAdapter<Contributor> adapter = new ArrayAdapter<Contributor>(mActivity,
-                android.R.layout.simple_list_item_1);
-
-        // Get the work's contributors list if it is provided and put them into the adapter.
-        if (jsonObject.has("contributors") && !jsonObject.isNull("contributors")) {
-            try {
-                JSONArray contributorsJSON = jsonObject.getJSONArray("contributors");
-                for (int i = 0; i < contributorsJSON.length(); i++) {
-                    JSONObject contributorJSON = contributorsJSON.getJSONObject(i);
-                    if (contributorJSON.has("name") && !contributorJSON.isNull("name")) {
-                        String name = contributorJSON.getString("name");
-                        String url = contributorJSON.getString("url");
-                        adapter.add(new Contributor(name, url));
-                    }
-                }
-            } catch (JSONException e) {
-                Log.e(TAG, e.toString(), e);
-            }
-        }
-
-        // Set the adapter to the ListView.
-        mListView.setAdapter(adapter);
-
         // // Get the image URL if it is provided and initialize the image loader.
         if (jsonObject.has("image") && !jsonObject.isNull("image")) {
             try {
@@ -216,8 +190,8 @@ public class WorkDataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
         // Hide the progress bar.
         mProgressBar.setVisibility(View.GONE);
 
-        // Show the ListView.
-        mListView.setVisibility(View.VISIBLE);
+        // Show the ScrollView.
+        mScrollView.setVisibility(View.VISIBLE);
     }
 
     @Override
