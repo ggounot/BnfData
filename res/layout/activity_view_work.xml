@@ -77,7 +77,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/languages_label"
+                android:id="@+id/language_label"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:layout_columnSpan="2"
                 android:text="@string/language_label"
@@ -85,7 +85,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/languages"
+                android:id="@+id/language"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -93,15 +93,95 @@
                 android:textIsSelectable="true" />
 
             <TextView
-                android:id="@+id/notes_label"
+                android:id="@+id/date_label"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:layout_columnSpan="2"
-                android:text="@string/notes_label"
+                android:text="@string/date_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/notes"
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/description_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/description_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/subjects_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/subjects_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/subjects"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/alt_forms_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/alt_forms_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/alt_forms"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/editorial_notes_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/editorial_notes_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/editorial_notes"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/exeternal_links_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/external_links_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/external_links"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"

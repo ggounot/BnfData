@@ -48,6 +48,9 @@
     <string name="alt_forms_label">Autres formes</string>
     <string name="editorial_notes_label">Sources</string>
     <string name="external_links_label">Liens externes</string>
+    <string name="date_label">Date</string>
+    <string name="description_label">Description</string>
+    <string name="subjects_label">Domaines</string>
 
     <string name="catalogue_link_text">Catalogue BnF</string>
     <string name="wikipedia_link_text">Wikipédia</string>
