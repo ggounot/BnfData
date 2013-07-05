@@ -41,8 +41,17 @@
 
     <string name="birthdate_label">Naissance</string>
     <string name="deathdate_label">Décès</string>
-    <string name="languages_label">Langue</string>
-    <string name="nationalities_label">Pays</string>
+    <string name="language_label">Langue</string>
+    <string name="country_label">Pays</string>
+    <string name="gender_label">Sexe</string>
+    <string name="fields_of_activity_label">Domaines</string>
+    <string name="alt_forms_label">Autres formes</string>
+    <string name="editorial_notes_label">Sources</string>
+    <string name="external_links_label">Liens externes</string>
+
+    <string name="catalogue_link_text">Catalogue BnF</string>
+    <string name="wikipedia_link_text">Wikipédia</string>
+
     <string name="startdate_label">Création</string>
     <string name="stopdate_label">Fin d’activité</string>
     <string name="notes_label">Notes</string>
