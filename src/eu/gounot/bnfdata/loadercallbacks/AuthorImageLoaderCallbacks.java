@@ -18,6 +18,10 @@ public class AuthorImageLoaderCallbacks implements LoaderCallbacks<Bitmap> {
     String mImageUrl;
 
     public AuthorImageLoaderCallbacks(ViewAuthorActivity activity, String imageUrl) {
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "AuthorImageLoaderCallbacks() imageUrl=" + imageUrl);
+        }
+
         mActivity = activity;
         mImageUrl = imageUrl;
     }
@@ -37,7 +41,7 @@ public class AuthorImageLoaderCallbacks implements LoaderCallbacks<Bitmap> {
             Log.d(TAG, "onLoadFinished()");
         }
 
-        mActivity.setImage(bitmap);
+        mActivity.onImageLoaded(bitmap);
     }
 
     @Override
