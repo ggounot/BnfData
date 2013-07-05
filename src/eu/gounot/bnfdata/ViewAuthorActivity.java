@@ -333,7 +333,7 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
             for (int i = 0; i < editorialNotes.length; i++) {
                 noteGroups[i] = TextUtils.join("\n", editorialNotes[i]);
             }
-            editorialNotesTextView.setText(TextUtils.join("\n", noteGroups));
+            editorialNotesTextView.setText(TextUtils.join("\n\n", noteGroups));
         } else {
             editorialNotesLabelTextView.setVisibility(View.GONE);
             editorialNotesTextView.setVisibility(View.GONE);
