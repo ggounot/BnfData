@@ -13,13 +13,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import eu.gounot.bnfdata.adapter.WorkAdapter;
 import eu.gounot.bnfdata.data.Author;
 import eu.gounot.bnfdata.loadercallbacks.AuthorDataLoaderCallbacks;
 import eu.gounot.bnfdata.loadercallbacks.AuthorImageLoaderCallbacks;
@@ -365,11 +365,7 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
     }
 
     public void setWorks(Author.Work[] works) {
-        ArrayAdapter<Author.Work> adapter = new ArrayAdapter<Author.Work>(this,
-                android.R.layout.simple_list_item_1);
-        for (Author.Work work : works) {
-            adapter.add(work);
-        }
+        WorkAdapter adapter = new WorkAdapter(this, works);
         mListView.setAdapter(adapter);
     }
 
