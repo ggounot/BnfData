@@ -2,7 +2,6 @@ package eu.gounot.bnfdata;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
@@ -175,7 +174,7 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
         // and start the ViewWorkActivity to view this work in detail.
         Intent intent = new Intent(this, ViewWorkActivity.class);
         Author.Work work = (Author.Work) mListView.getAdapter().getItem(position);
-        intent.setData(Uri.parse(work.getArkName()));
+        intent.putExtra(Constants.INTENT_ARK_NAME_KEY, work.getArkName());
         startActivity(intent);
     }
 
