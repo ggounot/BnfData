@@ -161,7 +161,7 @@ public class Author {
         mEditorialNotes = JsonHelper.get2DStringArrayOrNull(jsonObject, JSON_EDITORIAL_NOTES);
         mCatalogueUrl = JsonHelper.getStringOrNull(jsonObject, JSON_CATALOGUE_URL);
         mWikipediaUrl = JsonHelper.getStringOrNull(jsonObject, JSON_WIKIPEDIA_URL);
-        mWorks = JsonHelper.getWorkArrayOrNull(jsonObject, JSON_WORKS);
+        mWorks = JsonHelper.getWorkArray(jsonObject, JSON_WORKS);
     }
 
     public static class Work {

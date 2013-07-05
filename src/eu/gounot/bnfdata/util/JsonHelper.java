@@ -69,7 +69,7 @@ public class JsonHelper {
         }
     }
 
-    public static Author.Work[] getWorkArrayOrNull(JSONObject jsonObject, String key) {
+    public static Author.Work[] getWorkArray(JSONObject jsonObject, String key) {
         if (!jsonObject.isNull(key)) {
             try {
                 JSONArray jsonArray = jsonObject.getJSONArray(key);
@@ -85,10 +85,10 @@ public class JsonHelper {
                 return workArray;
             } catch (JSONException e) {
                 Log.e(TAG, e.toString(), e);
-                return null;
+                return new Author.Work[0];
             }
         } else {
-            return null;
+            return new Author.Work[0];
         }
     }
 }
