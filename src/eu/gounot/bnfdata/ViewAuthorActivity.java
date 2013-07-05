@@ -136,6 +136,8 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
         if (imageUrl != null) {
             AuthorImageLoaderCallbacks callbacks = new AuthorImageLoaderCallbacks(this, imageUrl);
             getSupportLoaderManager().initLoader(IMAGE_LOADER, null, callbacks);
+        } else {
+            setImage(null);
         }
 
         // Hide the network error view if it has already been inflated.
