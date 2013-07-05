@@ -18,6 +18,10 @@ public class WorkImageLoaderCallbacks implements LoaderCallbacks<Bitmap> {
     String mImageUrl;
 
     public WorkImageLoaderCallbacks(ViewWorkActivity activity, String imageUrl) {
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "WorkImageLoaderCallbacks() imageUrl=" + imageUrl);
+        }
+
         mActivity = activity;
         mImageUrl = imageUrl;
     }
@@ -37,12 +41,12 @@ public class WorkImageLoaderCallbacks implements LoaderCallbacks<Bitmap> {
             Log.d(TAG, "onLoadFinished()");
         }
 
-        mActivity.setImage(bitmap);
+        mActivity.onImageLoaded(bitmap);
     }
 
     @Override
-    public void onLoaderReset(Loader<Bitmap> arg0) {
-        // Nothing to do as the loaded data is no more referenced at this point.
+    public void onLoaderReset(Loader<Bitmap> loader) {
+        // Nothing to do as the loaded image is no more referenced at this point.
     }
 
 }
