@@ -69,11 +69,11 @@ public class ViewOrganizationActivity extends BnfDataBaseActivity implements OnC
         mNameTextView = (TextView) findViewById(R.id.name);
         mStartdateLabelTextView = (TextView) findViewById(R.id.startdate_label);
         mStopdateLabelTextView = (TextView) findViewById(R.id.stopdate_label);
-        mNationalitiesLabelTextView = (TextView) findViewById(R.id.nationalities_label);
+        mNationalitiesLabelTextView = (TextView) findViewById(R.id.country_label);
         mNotesLabelTextView = (TextView) findViewById(R.id.notes_label);
         mStartdateTextView = (TextView) findViewById(R.id.startdate);
         mStopdateTextView = (TextView) findViewById(R.id.stopdate);
-        mNationalitiesTextView = (TextView) findViewById(R.id.nationalities);
+        mNationalitiesTextView = (TextView) findViewById(R.id.country);
         mNotesTextView = (TextView) findViewById(R.id.notes);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mImageProgressBar = (ProgressBar) findViewById(R.id.image_progress_bar);

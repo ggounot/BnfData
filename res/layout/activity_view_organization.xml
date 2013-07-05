@@ -77,15 +77,15 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/nationalities_label"
+                android:id="@+id/country_label"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:layout_columnSpan="2"
-                android:text="@string/nationalities_label"
+                android:text="@string/country_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/nationalities"
+                android:id="@+id/country"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
