@@ -80,15 +80,15 @@
                 android:textIsSelectable="true" />
 
             <TextView
-                android:id="@+id/startdate_label"
+                android:id="@+id/language_label"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:layout_columnSpan="2"
-                android:text="@string/startdate_label"
+                android:text="@string/language_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/startdate"
+                android:id="@+id/language"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -96,15 +96,15 @@
                 android:textIsSelectable="true" />
 
             <TextView
-                android:id="@+id/stopdate_label"
+                android:id="@+id/creation_date_label"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:layout_columnSpan="2"
-                android:text="@string/stopdate_label"
+                android:text="@string/creation_date_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/stopdate"
+                android:id="@+id/creation_date"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -112,15 +112,111 @@
                 android:textIsSelectable="true" />
 
             <TextView
-                android:id="@+id/notes_label"
+                android:id="@+id/termination_date_label"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 app:layout_columnSpan="2"
-                android:text="@string/notes_label"
+                android:text="@string/termination_date_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/notes"
+                android:id="@+id/termination_date"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/home_page_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/home_page_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/home_page"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/history_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/history_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/history"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/fields_of_activity_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/fields_of_activity_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/fields_of_activity"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/alt_forms_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/alt_forms_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/alt_forms"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/editorial_notes_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/editorial_notes_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/editorial_notes"
+                android:layout_width="0dp"
+                app:layout_gravity="fill_horizontal"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/external_links_label"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                app:layout_columnSpan="2"
+                android:text="@string/external_links_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/external_links"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"

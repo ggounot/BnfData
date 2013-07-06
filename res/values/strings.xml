@@ -51,6 +51,10 @@
     <string name="date_label">Date</string>
     <string name="description_label">Description</string>
     <string name="subjects_label">Domaines</string>
+    <string name="creation_date_label">Création</string>
+    <string name="termination_date_label">Fin d’activité</string>
+    <string name="home_page_label">Site web</string>
+    <string name="history_label">Histoire</string>
 
     <string name="catalogue_link_text">Catalogue BnF</string>
     <string name="wikipedia_link_text">Wikipédia</string>
