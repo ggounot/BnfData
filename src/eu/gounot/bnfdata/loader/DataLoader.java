@@ -2,7 +2,6 @@ package eu.gounot.bnfdata.loader;
 
 import java.io.IOException;
 
-import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
@@ -10,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.gounot.bnfdata.BuildConfig;
+import eu.gounot.bnfdata.ViewObjectActivity;
 import eu.gounot.bnfdata.util.DataServer;
 
 public class DataLoader extends AsyncTaskLoader<JSONObject> {
@@ -20,14 +20,14 @@ public class DataLoader extends AsyncTaskLoader<JSONObject> {
     private String mArkName;
     private JSONObject mJsonObject;
 
-    public DataLoader(Context context, int objectType, String arkName) {
-        super(context);
+    public DataLoader(ViewObjectActivity activity, String arkName) {
+        super(activity);
 
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "DataLoader() objectType=" + objectType + " arkName=" + arkName);
+            Log.d(TAG, "DataLoader() arkName=" + arkName);
         }
 
-        mObjectType = objectType;
+        mObjectType = activity.getObjectType();
         mArkName = arkName;
     }
 
