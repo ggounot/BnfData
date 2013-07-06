@@ -7,34 +7,28 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewStub;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import eu.gounot.bnfdata.data.DataObject;
 import eu.gounot.bnfdata.data.Work;
-import eu.gounot.bnfdata.loadercallbacks.WorkDataLoaderCallbacks;
 import eu.gounot.bnfdata.loadercallbacks.WorkImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
-import eu.gounot.bnfdata.util.NetworkState;
 
-public class ViewWorkActivity extends BnfDataBaseActivity implements OnClickListener {
+public class ViewWorkActivity extends ViewObjectActivity {
 
     private static final String TAG = "ViewWorkActivity";
 
-    // Loaders' IDs.
-    public static final int DATA_LOADER = 0;
-    public static final int IMAGE_LOADER = 1;
-
     // Views.
     private ProgressBar mProgressBar;
-    private View mNetworkErrorView;
     private ScrollView mScrollView;
 
-    private WorkDataLoaderCallbacks mDataLoaderCallbacks;
+    @Override
+    public int getObjectType() {
+        return Constants.OBJECT_TYPE_WORK;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,56 +43,20 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnClickList
         mScrollView = (ScrollView) findViewById(R.id.scrollview);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        // Get the ARK name from the intent.
+        setProgressBar(mProgressBar);
+
+        // Get the ARK name from the intent and load the data.
         String arkName = getIntent().getExtras().getString(Constants.INTENT_ARK_NAME_KEY);
-
-        // Initialize the data loader with its callbacks.
-        mDataLoaderCallbacks = new WorkDataLoaderCallbacks(this, arkName);
-        getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);
+        loadData(arkName);
     }
 
-    public void onNetworkError() {
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onNetworkError()");
-        }
-
-        // Load the network error ViewStub if it was not already loaded.
-        if (mNetworkErrorView == null) {
-            // Inflate the network error view and reference it for further use.
-            ViewStub viewStub = (ViewStub) findViewById(R.id.network_error_stub);
-            viewStub.setLayoutResource(R.layout.network_error);
-            mNetworkErrorView = viewStub.inflate();
-
-            // Set the OnClickListener to the Retry button.
-            Button retryButton = (Button) mNetworkErrorView.findViewById(R.id.retry_button);
-            retryButton.setOnClickListener(this);
-        }
-
-        int errMsgResId;
-
-        // Select an appropriate error message.
-        if (!NetworkState.isNetworkAvailable(getApplicationContext())) {
-            errMsgResId = R.string.errmsg_no_network_connection;
-        } else {
-            errMsgResId = R.string.errmsg_data_retrieval_failed;
-        }
-
-        // Set the error message to the network error TextView.
-        TextView errorMessageTextView = (TextView) mNetworkErrorView
-                .findViewById(R.id.error_message);
-        errorMessageTextView.setText(errMsgResId);
-
-        // Hide the progress bar.
-        mProgressBar.setVisibility(View.GONE);
-
-        // Show the network error view.
-        mNetworkErrorView.setVisibility(View.VISIBLE);
-    }
-
-    public void onDataLoaded(Work work) {
+    @Override
+    public void onDataLoaded(DataObject dataObject) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onDataLoaded()");
         }
+
+        Work work = (Work) dataObject;
 
         setTitle(work.getTitle());
         setCreator(work.getCreatorLabel());
@@ -119,10 +77,7 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnClickList
             setImage(null);
         }
 
-        // Hide the network error view if it has already been inflated.
-        if (mNetworkErrorView != null) {
-            mNetworkErrorView.setVisibility(View.GONE);
-        }
+        hideNetworkError();
 
         // Hide the progress bar.
         mProgressBar.setVisibility(View.GONE);
@@ -131,21 +86,12 @@ public class ViewWorkActivity extends BnfDataBaseActivity implements OnClickList
         mScrollView.setVisibility(View.VISIBLE);
     }
 
+    @Override
     public void onImageLoaded(Bitmap bitmap) {
         setImage(bitmap);
     }
 
-    @Override
-    public void onClick(View v) {
-        // Following a network error, the user has clicked the Retry button,
-        // so we restart the loader to try loading the data again.
-        mNetworkErrorView.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
-        getSupportLoaderManager().restartLoader(DATA_LOADER, null, mDataLoaderCallbacks);
-    }
-
-    // These methods below are used by the onLoadFinished() callback
-    // to update the UI with the loaded data.
+    // These methods below are used to update the UI with the loaded data.
 
     public void setImage(Bitmap image) {
         ImageView imageView = (ImageView) findViewById(R.id.image);
