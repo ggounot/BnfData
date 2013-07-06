@@ -8,11 +8,8 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,26 +17,22 @@ import android.widget.TextView;
 
 import eu.gounot.bnfdata.adapter.WorkAdapter;
 import eu.gounot.bnfdata.data.Author;
-import eu.gounot.bnfdata.loadercallbacks.AuthorDataLoaderCallbacks;
+import eu.gounot.bnfdata.data.DataObject;
 import eu.gounot.bnfdata.loadercallbacks.AuthorImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
-import eu.gounot.bnfdata.util.NetworkState;
 
-public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemClickListener,
-        OnClickListener {
+public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClickListener {
 
     private static final String TAG = "ViewAuthorActivity";
 
-    // Loaders' IDs.
-    public static final int DATA_LOADER = 0;
-    public static final int IMAGE_LOADER = 1;
-
     // Views.
     private ProgressBar mProgressBar;
-    private View mNetworkErrorView;
     private ListView mListView;
 
-    private AuthorDataLoaderCallbacks mDataLoaderCallbacks;
+    @Override
+    public int getObjectType() {
+        return Constants.OBJECT_TYPE_PERSON;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +47,8 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
         mListView = (ListView) findViewById(R.id.list);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        setProgressBar(mProgressBar);
+
         // Set up the GridLayout (in which all the TextViews are)
         // as the ListView's header.
         View header = View.inflate(this, R.layout.activity_view_author_header, null);
@@ -66,56 +61,18 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
 
         mListView.setOnItemClickListener(this);
 
-        // Get the ARK name from the intent.
+        // Get the ARK name from the intent and load the data.
         String arkName = getIntent().getExtras().getString(Constants.INTENT_ARK_NAME_KEY);
-
-        // Initialize the data loader with its callbacks.
-        mDataLoaderCallbacks = new AuthorDataLoaderCallbacks(this, arkName);
-        getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);
+        loadData(arkName);
     }
 
-    public void onNetworkError() {
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "onNetworkError()");
-        }
-
-        // Load the network error ViewStub if it was not already loaded.
-        if (mNetworkErrorView == null) {
-            // Inflate the network error view and reference it for further use.
-            ViewStub viewStub = (ViewStub) findViewById(R.id.network_error_stub);
-            viewStub.setLayoutResource(R.layout.network_error);
-            mNetworkErrorView = viewStub.inflate();
-
-            // Set the OnClickListener to the Retry button.
-            Button retryButton = (Button) mNetworkErrorView.findViewById(R.id.retry_button);
-            retryButton.setOnClickListener(this);
-        }
-
-        int errMsgResId;
-
-        // Select an appropriate error message.
-        if (!NetworkState.isNetworkAvailable(getApplicationContext())) {
-            errMsgResId = R.string.errmsg_no_network_connection;
-        } else {
-            errMsgResId = R.string.errmsg_data_retrieval_failed;
-        }
-
-        // Set the error message to the network error TextView.
-        TextView errorMessageTextView = (TextView) mNetworkErrorView
-                .findViewById(R.id.error_message);
-        errorMessageTextView.setText(errMsgResId);
-
-        // Hide the progress bar.
-        mProgressBar.setVisibility(View.GONE);
-
-        // Show the network error view.
-        mNetworkErrorView.setVisibility(View.VISIBLE);
-    }
-
-    public void onDataLoaded(Author author) {
+    @Override
+    public void onDataLoaded(DataObject dataObject) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onDataLoaded()");
         }
+
+        Author author = (Author) dataObject;
 
         setName(author.getGivenName(), author.getFamilyName());
         setDates(author.getDates());
@@ -139,10 +96,7 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
             setImage(null);
         }
 
-        // Hide the network error view if it has already been inflated.
-        if (mNetworkErrorView != null) {
-            mNetworkErrorView.setVisibility(View.GONE);
-        }
+        hideNetworkError();
 
         // Hide the progress bar.
         mProgressBar.setVisibility(View.GONE);
@@ -151,17 +105,9 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
         mListView.setVisibility(View.VISIBLE);
     }
 
+    @Override
     public void onImageLoaded(Bitmap bitmap) {
         setImage(bitmap);
-    }
-
-    @Override
-    public void onClick(View v) {
-        // Following a network error, the user has clicked the Retry button,
-        // so we restart the loader to try loading the data again.
-        mNetworkErrorView.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
-        getSupportLoaderManager().restartLoader(DATA_LOADER, null, mDataLoaderCallbacks);
     }
 
     @Override
@@ -178,8 +124,7 @@ public class ViewAuthorActivity extends BnfDataBaseActivity implements OnItemCli
         startActivity(intent);
     }
 
-    // These methods below are used by the onLoadFinished() callback
-    // to update the UI with the loaded data.
+    // These methods below are used to update the UI with the loaded data.
 
     public void setImage(Bitmap image) {
         ImageView imageView = (ImageView) findViewById(R.id.image);
