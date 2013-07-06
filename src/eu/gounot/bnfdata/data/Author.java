@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import eu.gounot.bnfdata.BuildConfig;
 import eu.gounot.bnfdata.util.JsonHelper;
 
-public class Author extends DataObject {
+public class Author {
 
     private static final String TAG = "Author";
 

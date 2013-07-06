@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import eu.gounot.bnfdata.BuildConfig;
 import eu.gounot.bnfdata.util.JsonHelper;
 
-public class Organization extends DataObject {
+public class Organization {
 
     private static final String TAG = "Work";
 
