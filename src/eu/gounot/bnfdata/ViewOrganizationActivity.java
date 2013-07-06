@@ -91,7 +91,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
 
     // These methods below are used to update the UI with the loaded data.
 
-    public void setImage(Bitmap image) {
+    private void setImage(Bitmap image) {
         ImageView imageView = (ImageView) findViewById(R.id.image);
         if (image != null) {
             imageView.setImageBitmap(image);
@@ -101,7 +101,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         findViewById(R.id.image_progress_bar).setVisibility(View.GONE);
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         TextView nameTextView = (TextView) findViewById(R.id.name);
         if (name != null) {
             nameTextView.setText(name);
@@ -110,7 +110,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setCountry(String country) {
+    private void setCountry(String country) {
         TextView countryLabelTextView = (TextView) findViewById(R.id.country_label);
         TextView countryTextView = (TextView) findViewById(R.id.country);
         if (country != null) {
@@ -121,7 +121,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setLanguage(String language) {
+    private void setLanguage(String language) {
         TextView languageLabelTextView = (TextView) findViewById(R.id.language_label);
         TextView languageTextView = (TextView) findViewById(R.id.language);
         if (language != null) {
@@ -132,7 +132,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setCreationDate(String creationDate) {
+    private void setCreationDate(String creationDate) {
         TextView creationDateLabelTextView = (TextView) findViewById(R.id.creation_date_label);
         TextView creationDateTextView = (TextView) findViewById(R.id.creation_date);
         if (creationDate != null) {
@@ -143,7 +143,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setTerminationDate(String terminationDate) {
+    private void setTerminationDate(String terminationDate) {
         TextView terminationDateLabelTextView = (TextView) findViewById(R.id.termination_date_label);
         TextView terminationDateTextView = (TextView) findViewById(R.id.termination_date);
         if (terminationDate != null) {
@@ -154,7 +154,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setHomePage(String homePage) {
+    private void setHomePage(String homePage) {
         TextView homePageDateLabelTextView = (TextView) findViewById(R.id.home_page_label);
         TextView homePageDateTextView = (TextView) findViewById(R.id.home_page);
         if (homePage != null) {
@@ -165,7 +165,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setHistory(String[] history) {
+    private void setHistory(String[] history) {
         TextView historyLabelTextView = (TextView) findViewById(R.id.history_label);
         TextView historyTextView = (TextView) findViewById(R.id.history);
         if (history != null) {
@@ -176,7 +176,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setFieldsOfActivity(String[] fieldsOfActivity) {
+    private void setFieldsOfActivity(String[] fieldsOfActivity) {
         TextView fieldsOfActivityLabelTextView = (TextView) findViewById(R.id.fields_of_activity_label);
         TextView fieldsOfActivityTextView = (TextView) findViewById(R.id.fields_of_activity);
         if (fieldsOfActivity != null) {
@@ -187,7 +187,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setAltForms(String[] altForms) {
+    private void setAltForms(String[] altForms) {
         TextView altFormsLabelTextView = (TextView) findViewById(R.id.alt_forms_label);
         TextView altFormsTextView = (TextView) findViewById(R.id.alt_forms);
         if (altForms != null) {
@@ -198,7 +198,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setEditorialNotes(String[][] editorialNotes) {
+    private void setEditorialNotes(String[][] editorialNotes) {
         TextView editorialNotesLabelTextView = (TextView) findViewById(R.id.editorial_notes_label);
         TextView editorialNotesTextView = (TextView) findViewById(R.id.editorial_notes);
         if (editorialNotes != null) {
@@ -213,7 +213,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    public void setExternalLinks(String catalogueUrl, String wikipediaUrl) {
+    private void setExternalLinks(String catalogueUrl, String wikipediaUrl) {
         TextView externalLinksLabelTextView = (TextView) findViewById(R.id.external_links_label);
         TextView externalLinksTextView = (TextView) findViewById(R.id.external_links);
         String urls = "";

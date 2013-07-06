@@ -97,7 +97,7 @@ public abstract class ViewObjectActivity extends BnfDataBaseActivity implements 
         }
     }
 
-    public void loadData(String arkName) {
+    protected void loadData(String arkName) {
         // Initialize the data loader with its callbacks.
         mDataLoaderCallbacks = new DataLoaderCallbacks(this, arkName);
         getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);

@@ -126,7 +126,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
 
     // These methods below are used to update the UI with the loaded data.
 
-    public void setImage(Bitmap image) {
+    private void setImage(Bitmap image) {
         ImageView imageView = (ImageView) findViewById(R.id.image);
         if (image != null) {
             imageView.setImageBitmap(image);
@@ -136,7 +136,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         findViewById(R.id.image_progress_bar).setVisibility(View.GONE);
     }
 
-    public void setName(String givenName, String familyName) {
+    private void setName(String givenName, String familyName) {
         TextView nameTextView = (TextView) findViewById(R.id.name);
         String name = "";
         if (givenName != null) {
@@ -152,7 +152,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setDates(String dates) {
+    private void setDates(String dates) {
         TextView datesTextView = (TextView) findViewById(R.id.dates);
         if (dates != null) {
             datesTextView.setText(dates);
@@ -161,7 +161,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setCountry(String nationalities) {
+    private void setCountry(String nationalities) {
         TextView countryLabelTextView = (TextView) findViewById(R.id.country_label);
         TextView countryTextView = (TextView) findViewById(R.id.country);
         if (nationalities != null) {
@@ -172,7 +172,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setLanguage(String language) {
+    private void setLanguage(String language) {
         TextView languageLabelTextView = (TextView) findViewById(R.id.language_label);
         TextView languageTextView = (TextView) findViewById(R.id.language);
         if (language != null) {
@@ -183,7 +183,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setGender(String gender) {
+    private void setGender(String gender) {
         TextView genderLabelTextView = (TextView) findViewById(R.id.gender_label);
         TextView genderTextView = (TextView) findViewById(R.id.gender);
         if (gender != null) {
@@ -194,7 +194,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setDateOfBirth(String dateOfBirth, String placeOfBirth) {
+    private void setDateOfBirth(String dateOfBirth, String placeOfBirth) {
         TextView dateOfBirthLabelTextView = (TextView) findViewById(R.id.date_of_birth_label);
         TextView dateOfBirthTextView = (TextView) findViewById(R.id.date_of_birth);
         String birth = "";
@@ -215,7 +215,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setDateOfDeath(String dateOfDeath, String placeOfDeath) {
+    private void setDateOfDeath(String dateOfDeath, String placeOfDeath) {
         TextView dateOfDeathLabelTextView = (TextView) findViewById(R.id.date_of_death_label);
         TextView dateOfDeathTextView = (TextView) findViewById(R.id.date_of_death);
         String death = "";
@@ -236,7 +236,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setBiographicalInfos(String[] biographicalInfos) {
+    private void setBiographicalInfos(String[] biographicalInfos) {
         TextView biographicalInfosLabelTextView = (TextView) findViewById(R.id.notes_label);
         TextView biographicalInfosTextView = (TextView) findViewById(R.id.notes);
         if (biographicalInfos != null) {
@@ -247,7 +247,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setFieldsOfActivity(String[] fieldsOfActivity) {
+    private void setFieldsOfActivity(String[] fieldsOfActivity) {
         TextView fieldsOfActivityLabelTextView = (TextView) findViewById(R.id.fields_of_activity_label);
         TextView fieldsOfActivityTextView = (TextView) findViewById(R.id.fields_of_activity);
         if (fieldsOfActivity != null) {
@@ -258,7 +258,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setAltForms(String[] altForms) {
+    private void setAltForms(String[] altForms) {
         TextView altFormsLabelTextView = (TextView) findViewById(R.id.alt_forms_label);
         TextView altFormsTextView = (TextView) findViewById(R.id.alt_forms);
         if (altForms != null) {
@@ -269,7 +269,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setEditorialNotes(String[][] editorialNotes) {
+    private void setEditorialNotes(String[][] editorialNotes) {
         TextView editorialNotesLabelTextView = (TextView) findViewById(R.id.editorial_notes_label);
         TextView editorialNotesTextView = (TextView) findViewById(R.id.editorial_notes);
         if (editorialNotes != null) {
@@ -284,7 +284,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setExternalLinks(String catalogueUrl, String wikipediaUrl) {
+    private void setExternalLinks(String catalogueUrl, String wikipediaUrl) {
         TextView externalLinksLabelTextView = (TextView) findViewById(R.id.external_links_label);
         TextView externalLinksTextView = (TextView) findViewById(R.id.external_links);
         String urls = "";
@@ -308,7 +308,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
     }
 
-    public void setWorks(Author.Work[] works) {
+    private void setWorks(Author.Work[] works) {
         WorkAdapter adapter = new WorkAdapter(this, works);
         mListView.setAdapter(adapter);
     }

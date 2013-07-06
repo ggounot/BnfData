@@ -93,7 +93,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
 
     // These methods below are used to update the UI with the loaded data.
 
-    public void setImage(Bitmap image) {
+    private void setImage(Bitmap image) {
         ImageView imageView = (ImageView) findViewById(R.id.image);
         if (image != null) {
             imageView.setImageBitmap(image);
@@ -103,7 +103,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         findViewById(R.id.image_progress_bar).setVisibility(View.GONE);
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         TextView titleTextView = (TextView) findViewById(R.id.title);
         if (title != null) {
             titleTextView.setText(title);
@@ -112,7 +112,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setCreator(String creatorLabel) {
+    private void setCreator(String creatorLabel) {
         TextView authorTextView = (TextView) findViewById(R.id.author);
         if (creatorLabel != null) {
             authorTextView.setText(creatorLabel);
@@ -121,7 +121,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setLanguage(String language) {
+    private void setLanguage(String language) {
         TextView languageLabelTextView = (TextView) findViewById(R.id.language_label);
         TextView languageTextView = (TextView) findViewById(R.id.language);
         if (language != null) {
@@ -132,7 +132,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setDate(String date) {
+    private void setDate(String date) {
         TextView dateLabelTextView = (TextView) findViewById(R.id.date_label);
         TextView dateTextView = (TextView) findViewById(R.id.date);
         if (date != null) {
@@ -143,7 +143,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setDescription(String[] description) {
+    private void setDescription(String[] description) {
         TextView descriptionLabelTextView = (TextView) findViewById(R.id.description_label);
         TextView descriptionTextView = (TextView) findViewById(R.id.description);
         if (description != null) {
@@ -154,7 +154,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setSubjects(String[] subjects) {
+    private void setSubjects(String[] subjects) {
         TextView subjectsLabelTextView = (TextView) findViewById(R.id.subjects_label);
         TextView subjectsTextView = (TextView) findViewById(R.id.subjects);
         if (subjects != null) {
@@ -165,7 +165,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setAltForms(String[] altForms) {
+    private void setAltForms(String[] altForms) {
         TextView altFormsLabelTextView = (TextView) findViewById(R.id.alt_forms_label);
         TextView altFormsTextView = (TextView) findViewById(R.id.alt_forms);
         if (altForms != null) {
@@ -176,7 +176,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setEditorialNotes(String[][] editorialNotes) {
+    private void setEditorialNotes(String[][] editorialNotes) {
         TextView editorialNotesLabelTextView = (TextView) findViewById(R.id.editorial_notes_label);
         TextView editorialNotesTextView = (TextView) findViewById(R.id.editorial_notes);
         if (editorialNotes != null) {
@@ -191,7 +191,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    public void setExternalLinks(String catalogueUrl, String wikipediaUrl) {
+    private void setExternalLinks(String catalogueUrl, String wikipediaUrl) {
         TextView externalLinksLabelTextView = (TextView) findViewById(R.id.external_links_label);
         TextView externalLinksTextView = (TextView) findViewById(R.id.external_links);
         String urls = "";
