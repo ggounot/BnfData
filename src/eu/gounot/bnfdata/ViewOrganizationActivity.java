@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import eu.gounot.bnfdata.data.DataObject;
 import eu.gounot.bnfdata.data.Organization;
-import eu.gounot.bnfdata.loadercallbacks.OrganizationImageLoaderCallbacks;
+import eu.gounot.bnfdata.loadercallbacks.ImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
 
 public class ViewOrganizationActivity extends ViewObjectActivity {
@@ -68,8 +68,7 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
 
         String imageUrl = organization.getImageUrl();
         if (imageUrl != null) {
-            OrganizationImageLoaderCallbacks callbacks = new OrganizationImageLoaderCallbacks(this,
-                    imageUrl);
+            ImageLoaderCallbacks callbacks = new ImageLoaderCallbacks(this, imageUrl);
             getSupportLoaderManager().initLoader(IMAGE_LOADER, null, callbacks);
         } else {
             setImage(null);

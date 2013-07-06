@@ -18,7 +18,7 @@ import android.widget.TextView;
 import eu.gounot.bnfdata.adapter.WorkAdapter;
 import eu.gounot.bnfdata.data.Author;
 import eu.gounot.bnfdata.data.DataObject;
-import eu.gounot.bnfdata.loadercallbacks.AuthorImageLoaderCallbacks;
+import eu.gounot.bnfdata.loadercallbacks.ImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
 
 public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClickListener {
@@ -90,7 +90,7 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
 
         String imageUrl = author.getImageUrl();
         if (imageUrl != null) {
-            AuthorImageLoaderCallbacks callbacks = new AuthorImageLoaderCallbacks(this, imageUrl);
+            ImageLoaderCallbacks callbacks = new ImageLoaderCallbacks(this, imageUrl);
             getSupportLoaderManager().initLoader(IMAGE_LOADER, null, callbacks);
         } else {
             setImage(null);
