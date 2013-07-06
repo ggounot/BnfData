@@ -107,9 +107,9 @@ public abstract class BnfDataBaseActivity extends SherlockFragmentActivity imple
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // Inhibit the query submission if it is less than 4 characters
+        // Inhibit the query submission if it is less than 3 characters
         // and show an explanatory message.
-        if (query.length() < 4) {
+        if (query.length() < 3) {
             Toast toast = Toast.makeText(this, R.string.query_too_short, Toast.LENGTH_LONG);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, toast.getYOffset());
             toast.show();
