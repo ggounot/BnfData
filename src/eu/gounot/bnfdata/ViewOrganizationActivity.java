@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import eu.gounot.bnfdata.data.DataObject;
+import org.json.JSONObject;
+
 import eu.gounot.bnfdata.data.Organization;
 import eu.gounot.bnfdata.loadercallbacks.ImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
@@ -47,12 +48,12 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
     }
 
     @Override
-    public void onDataLoaded(DataObject dataObject) {
+    public void onDataLoaded(JSONObject jsonObject) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onDataLoaded()");
         }
 
-        Organization organization = (Organization) dataObject;
+        Organization organization = new Organization(jsonObject);
 
         setName(organization.getName());
         setCountry(organization.getCountry());

@@ -12,7 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import eu.gounot.bnfdata.data.DataObject;
+import org.json.JSONObject;
+
 import eu.gounot.bnfdata.data.Work;
 import eu.gounot.bnfdata.loadercallbacks.ImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
@@ -51,12 +52,12 @@ public class ViewWorkActivity extends ViewObjectActivity {
     }
 
     @Override
-    public void onDataLoaded(DataObject dataObject) {
+    public void onDataLoaded(JSONObject jsonObject) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onDataLoaded()");
         }
 
-        Work work = (Work) dataObject;
+        Work work = new Work(jsonObject);
 
         setTitle(work.getTitle());
         setCreator(work.getCreatorLabel());

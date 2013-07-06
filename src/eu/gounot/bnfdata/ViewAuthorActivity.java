@@ -15,9 +15,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import eu.gounot.bnfdata.adapter.WorkAdapter;
 import eu.gounot.bnfdata.data.Author;
-import eu.gounot.bnfdata.data.DataObject;
 import eu.gounot.bnfdata.loadercallbacks.ImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
 
@@ -67,12 +68,12 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
     }
 
     @Override
-    public void onDataLoaded(DataObject dataObject) {
+    public void onDataLoaded(JSONObject jsonObject) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "onDataLoaded()");
         }
 
-        Author author = (Author) dataObject;
+        Author author = new Author(jsonObject);
 
         setName(author.getGivenName(), author.getFamilyName());
         setDates(author.getDates());

@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import eu.gounot.bnfdata.data.DataObject;
+import org.json.JSONObject;
+
 import eu.gounot.bnfdata.loadercallbacks.DataLoaderCallbacks;
 import eu.gounot.bnfdata.util.NetworkState;
 
@@ -39,7 +40,7 @@ public abstract class ViewObjectActivity extends BnfDataBaseActivity implements 
 
     public abstract int getObjectType();
 
-    public abstract void onDataLoaded(DataObject dataObject);
+    public abstract void onDataLoaded(JSONObject jsonObject);
 
     public abstract void onImageLoaded(Bitmap bitmap);
 

@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import eu.gounot.bnfdata.BuildConfig;
 import eu.gounot.bnfdata.ViewObjectActivity;
-import eu.gounot.bnfdata.data.Author;
 import eu.gounot.bnfdata.loader.DataLoader;
 
 public class DataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
@@ -44,7 +43,7 @@ public class DataLoaderCallbacks implements LoaderCallbacks<JSONObject> {
         }
 
         if (jsonObject != null) {
-            mActivity.onDataLoaded(new Author(jsonObject));
+            mActivity.onDataLoaded(jsonObject);
         } else {
             mActivity.onNetworkError();
         }
