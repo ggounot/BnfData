@@ -1,10 +1,13 @@
 package eu.gounot.bnfdata;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -60,7 +63,7 @@ public class ViewWorkActivity extends ViewObjectActivity {
         Work work = new Work(jsonObject);
 
         setTitle(work.getTitle());
-        setCreator(work.getCreatorLabel());
+        setCreator(work.getCreatorLabel(), work.getCreatorArkName());
         setDate(work.getDate());
         setLanguage(work.getLanguageName());
         setDate(work.getDate());
@@ -113,10 +116,24 @@ public class ViewWorkActivity extends ViewObjectActivity {
         }
     }
 
-    private void setCreator(String creatorLabel) {
+    private void setCreator(String creatorLabel, final String creatorArkName) {
         TextView authorTextView = (TextView) findViewById(R.id.author);
         if (creatorLabel != null) {
             authorTextView.setText(creatorLabel);
+            authorTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            Spannable spannableCreatorLabel = (Spannable) authorTextView.getText();
+            ClickableSpan clickableSpan = new ClickableSpan() {
+
+                @Override
+                public void onClick(View widget) {
+                    Intent viewAuthorIntent = new Intent(getApplicationContext(),
+                            ViewAuthorActivity.class);
+                    viewAuthorIntent.putExtra(Constants.INTENT_ARK_NAME_KEY, creatorArkName);
+                    startActivity(viewAuthorIntent);
+                }
+            };
+            spannableCreatorLabel.setSpan(clickableSpan, 0, spannableCreatorLabel.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             authorTextView.setVisibility(View.GONE);
         }
