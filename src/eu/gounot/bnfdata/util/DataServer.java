@@ -22,6 +22,8 @@ public class DataServer {
 
     private static final String TAG = "DataServer";
 
+    private static HttpClient mHttpClient = null;
+
     public static JSONObject getJsonObject(int objectType, String arkName) throws IOException,
             JSONException {
         if (BuildConfig.DEBUG) {
@@ -46,10 +48,13 @@ public class DataServer {
             Log.d(TAG, "downloadJsonObject() url=" + url);
         }
 
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpProtocolParams.setUserAgent(httpClient.getParams(), Constants.USER_AGENT);
+        if (mHttpClient == null) {
+            mHttpClient = new DefaultHttpClient();
+            HttpProtocolParams.setUserAgent(mHttpClient.getParams(), Constants.USER_AGENT);
+        }
+
         HttpGet httpGet = new HttpGet(url);
-        HttpResponse response = httpClient.execute(httpGet);
+        HttpResponse response = mHttpClient.execute(httpGet);
         HttpEntity entity = response.getEntity();
         InputStream inputStream = entity.getContent();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
