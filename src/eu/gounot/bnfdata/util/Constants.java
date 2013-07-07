@@ -27,4 +27,6 @@ public class Constants {
     public static final String[] OBJECT_TYPE_DIR = { "person", "work", "organization", "theme" };
 
     public static final String INTENT_ARK_NAME_KEY = "arkname";
+
+    public static final String USER_AGENT = "BnfData-Android-App/2.0";
 }
