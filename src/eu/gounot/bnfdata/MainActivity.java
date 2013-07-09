@@ -1,6 +1,7 @@
 package eu.gounot.bnfdata;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -126,8 +127,7 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
         // or if the already installed version doesn't match the current one.
         SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME,
                 Context.MODE_PRIVATE);
-        int dbState = preferences.getInt(Constants.PREF_DB_STATE_KEY,
-                Constants.DB_NOT_INSTALLED);
+        int dbState = preferences.getInt(Constants.PREF_DB_STATE_KEY, Constants.DB_NOT_INSTALLED);
         if (dbState == Constants.DB_INSTALLED) {
             int dbVersion = preferences.getInt(Constants.PREF_DB_VERSION_KEY, 0);
             return (dbVersion != Constants.DB_VERSION);
@@ -184,26 +184,11 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
         // Hide the database installation view and show the home view.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
             mHomeView.animate().alpha(1);
-            mDbInstallationView.animate().alpha(0).setListener(new Animator.AnimatorListener() {
-
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    // Nothing to do.
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                    // Nothing to do.
-                }
+            mDbInstallationView.animate().alpha(0).setListener(new AnimatorListenerAdapter() {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mDbInstallationView.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    // Nothing to do.
                 }
             });
         } else {
