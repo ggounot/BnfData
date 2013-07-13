@@ -183,13 +183,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
-            <TextView
+            <eu.gounot.bnfdata.view.ExpandableTextView
                 android:id="@+id/alt_forms"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textIsSelectable="true" />
+                android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
                 android:id="@+id/editorial_notes_label"
@@ -199,13 +198,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?android:attr/textColorPrimary" />
 
-            <TextView
+            <eu.gounot.bnfdata.view.ExpandableTextView
                 android:id="@+id/editorial_notes"
                 android:layout_width="0dp"
                 app:layout_gravity="fill_horizontal"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textIsSelectable="true" />
+                android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
                 android:id="@+id/external_links_label"
