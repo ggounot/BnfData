@@ -12,5 +12,7 @@
     <dimen name="object_image_container_height">102dp</dimen>
     <dimen name="object_image_max_width">70dp</dimen>
     <dimen name="object_image_max_height">100dp</dimen>
+    <dimen name="collapsed_textview_height">100dp</dimen>
+    <dimen name="collapsed_textview_gradient_height">50dp</dimen>
 
 </resources>
