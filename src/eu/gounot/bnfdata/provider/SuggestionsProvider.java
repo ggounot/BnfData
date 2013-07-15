@@ -17,28 +17,28 @@ public class SuggestionsProvider extends ContentProvider {
 
     private static final String TAG = "SuggestionsProvider";
 
-    // SQLite tables.
-    private static final String TABLE_SUGGESTIONS = "suggestions";
-    private static final String TABLE_OBJECT_TYPES = "object_types";
-
-    // Columns.
-    private static final String COL_ID = TABLE_SUGGESTIONS + ".rowid";
-    private static final String COL_FORM = TABLE_SUGGESTIONS + ".form";
-    private static final String COL_FORM_TYPE = TABLE_SUGGESTIONS + ".form_type_id";
-    private static final String COL_OBJECT_TYPE = TABLE_SUGGESTIONS + ".object_type_id";
-    private static final String COL_ARK_NAME = TABLE_SUGGESTIONS + ".ark_name";
-    private static final String COL_OBJECT_TYPE_LABEL = TABLE_OBJECT_TYPES + ".label";
-
-    // Query elements.
-    private static final String TABLES = TABLE_SUGGESTIONS + ", " + TABLE_OBJECT_TYPES;
-    private static final String[] PROJECTION = { COL_ID + " AS " + BaseColumns._ID,
-            COL_FORM + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1,
-            COL_OBJECT_TYPE_LABEL + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_2,
-            COL_ARK_NAME + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA,
-            COL_OBJECT_TYPE + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA };
-    private static final String GROUP_BY = COL_ARK_NAME;
-    private static final String HAVING = COL_FORM_TYPE + " = MIN(" + COL_FORM_TYPE + ")";
-    private static final String ORDER_BY = COL_OBJECT_TYPE + " ASC, " + COL_FORM + " ASC";
+    // SQL query.
+    private static final String SQL_QUERY = "SELECT "
+            + "s.rowid AS " + BaseColumns._ID
+            + ", MIN(s.form) AS " + SearchManager.SUGGEST_COLUMN_TEXT_1
+            + ", ot.label AS " + SearchManager.SUGGEST_COLUMN_TEXT_2
+            + ", s.ark_name AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA
+            + ", s.object_type_id AS " + SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA
+            + " FROM ("
+                + "SELECT ark_name, "
+                + "MIN(form_type_id) AS min_form_type_id "
+                + "FROM suggestions "
+                + "WHERE form MATCH ? "
+                + "GROUP BY ark_name"
+            + ") AS an "
+            + "INNER JOIN suggestions AS s "
+            + "ON s.ark_name = an.ark_name "
+            + "AND s.form_type_id = an.min_form_type_id "
+            + "INNER JOIN object_types AS ot "
+            + "ON s.object_type_id = ot.id "
+            + "WHERE s.form MATCH ? "
+            + "GROUP BY s.ark_name "
+            + "ORDER BY s.object_type_id ASC, s.form ASC";
 
     // Cursor's columns.
     public static final int CURSOR_COL_ID = 0; // _ID
@@ -93,7 +93,7 @@ public class SuggestionsProvider extends ContentProvider {
         case SEARCH_URI:
             String filter = selectionArgs[0].trim();
             // Search only if the filter is at least 3 characters.
-            return (filter.length() < 3) ? null : getSuggestionsCursor(selection, selectionArgs);
+            return (filter.length() < 3) ? null : getSuggestionsCursor(selection, filter);
         default:
             Log.e(TAG, "Invalid content URI.");
             return null;
@@ -132,16 +132,17 @@ public class SuggestionsProvider extends ContentProvider {
         throw new UnsupportedOperationException();
     }
 
-    private Cursor getSuggestionsCursor(String selection, String[] selectionArgs) {
+    private Cursor getSuggestionsCursor(String selection, String filter) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "getSuggestionsCursor()");
         }
 
         SQLiteDatabase db = mDatabaseOpenHelper.getReadableDatabase();
 
-        selectionArgs[0] = appendWildcards(selectionArgs[0]);
+        filter = appendWildcards(filter);
+        String[] args = { filter, filter };
 
-        return db.query(TABLES, PROJECTION, selection, selectionArgs, GROUP_BY, HAVING, ORDER_BY);
+        return db.rawQuery(SQL_QUERY, args);
     }
 
     private String appendWildcards(String filter) {

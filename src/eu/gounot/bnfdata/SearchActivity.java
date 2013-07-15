@@ -154,12 +154,11 @@ public class SearchActivity extends BnfDataBaseActivity implements OnItemClickLi
             Log.d(TAG, "onCreateLoader()");
         }
 
-        String selection = getResources().getString(R.string.suggest_selection);
         String[] selectionArgs = new String[] { mFilter };
 
         // Load and return the cursor.
         return new CursorLoader(getApplicationContext(), SuggestionsProvider.CONTENT_SEARCH_URI,
-                null, selection, selectionArgs, null);
+                null, null, selectionArgs, null);
     }
 
     @Override

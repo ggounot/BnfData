@@ -3,7 +3,7 @@
     android:label="@string/app_name"
     android:hint="@string/search_hint"
     android:searchSuggestAuthority="eu.gounot.bnfdata.provider.SuggestionsProvider"
-    android:searchSuggestSelection="@string/suggest_selection"
+    android:searchSuggestSelection=""
     android:searchSuggestThreshold="3"
     android:searchSuggestIntentAction="android.Intent.action.VIEW">
 </searchable>

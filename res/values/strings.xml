@@ -63,6 +63,4 @@
     <string name="stopdate_label">Fin d’activité</string>
     <string name="notes_label">Notes</string>
 
-    <string name="suggest_selection">suggestions.object_type_id = object_types.id AND suggestions.form MATCH ?</string>
-
 </resources>
