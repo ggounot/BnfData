@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import eu.gounot.bnfdata.loadercallbacks.DataBnfFrImageLoaderCallbacks;
 import eu.gounot.bnfdata.loadercallbacks.DataLoaderCallbacks;
 import eu.gounot.bnfdata.util.NetworkState;
 
@@ -26,6 +27,7 @@ public abstract class ViewObjectActivity extends BnfDataBaseActivity implements 
     private View mNetworkErrorView;
 
     private DataLoaderCallbacks mDataLoaderCallbacks;
+    private DataBnfFrImageLoaderCallbacks mImageLoaderCallbacks;
 
     private View getProgressBar() {
         if (mProgressBar == null) {
@@ -102,6 +104,10 @@ public abstract class ViewObjectActivity extends BnfDataBaseActivity implements 
         // Initialize the data loader with its callbacks.
         mDataLoaderCallbacks = new DataLoaderCallbacks(this, arkName);
         getSupportLoaderManager().initLoader(DATA_LOADER, null, mDataLoaderCallbacks);
+
+        // Initialize the image loader with its callbacks.
+        mImageLoaderCallbacks = new DataBnfFrImageLoaderCallbacks(this, arkName);
+        getSupportLoaderManager().initLoader(IMAGE_LOADER, null, mImageLoaderCallbacks);
     }
 
 }
