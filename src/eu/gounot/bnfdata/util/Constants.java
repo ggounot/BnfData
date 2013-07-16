@@ -18,6 +18,7 @@ public class Constants {
     public static final int DB_INSTALLED = 2;
 
     public static final String JSON_OBJECT_URL_FORMAT = "http://bnfdata.gounot.eu/data/2.0/%s/%s.json";
+    public static final String DATA_BNF_FR_PAGE_URL_PREFIX = "http://data.bnf.fr/ark:/12148/";
 
     public static final int OBJECT_TYPE_PERSON = 0;
     public static final int OBJECT_TYPE_WORK = 1;

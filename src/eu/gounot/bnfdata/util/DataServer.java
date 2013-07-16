@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +31,32 @@ public class DataServer {
         JSONObject jsonObject = new JSONObject(jsonText);
 
         return jsonObject;
+    }
+
+    public static JSONArray getDataBnfFrJsonArray(String arkName) throws IOException, JSONException {
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "getDataBnfFrJsonArray() arkName=" + arkName);
+        }
+
+        String jsonArrayUrl = getDataBnfFrJsonUrl(arkName);
+        String jsonText = downloadJsonText(jsonArrayUrl);
+        JSONArray jsonArray = new JSONArray(jsonText);
+
+        return jsonArray;
+    }
+
+    private static String getDataBnfFrJsonUrl(String arkName) throws MalformedURLException,
+            IOException {
+        String pageUrl = Constants.DATA_BNF_FR_PAGE_URL_PREFIX + arkName;
+        HttpURLConnection urlConnection = (HttpURLConnection) new URL(pageUrl).openConnection();
+        urlConnection.setInstanceFollowRedirects(false);
+        String redirectUrl = urlConnection.getHeaderField("Location");
+        if (redirectUrl.charAt(redirectUrl.length() - 1) == '/') {
+            redirectUrl = redirectUrl.substring(0, redirectUrl.length() - 1);
+        }
+        String jsonUrl = redirectUrl + ".json";
+
+        return jsonUrl;
     }
 
     private static String buildJsonObjectUrl(int objectType, String arkName) {
