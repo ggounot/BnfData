@@ -31,7 +31,8 @@ public class DataServer {
         }
 
         String jsonObjectUrl = buildJsonObjectUrl(objectType, arkName);
-        JSONObject jsonObject = downloadJsonObject(jsonObjectUrl);
+        String jsonText = downloadJsonText(jsonObjectUrl);
+        JSONObject jsonObject = new JSONObject(jsonText);
 
         return jsonObject;
     }
@@ -43,9 +44,9 @@ public class DataServer {
         return url;
     }
 
-    private static JSONObject downloadJsonObject(String url) throws IOException, JSONException {
+    private static String downloadJsonText(String url) throws IOException, JSONException {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "downloadJsonObject() url=" + url);
+            Log.d(TAG, "downloadJsonText() url=" + url);
         }
 
         if (mHttpClient == null) {
@@ -65,9 +66,8 @@ public class DataServer {
             stringBuilder.append(line);
         }
         inputStream.close();
-        JSONObject jsonObject = new JSONObject(stringBuilder.toString());
 
-        return jsonObject;
+        return stringBuilder.toString();
     }
 
 }
