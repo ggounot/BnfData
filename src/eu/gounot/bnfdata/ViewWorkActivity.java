@@ -18,7 +18,6 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 import eu.gounot.bnfdata.data.Work;
-import eu.gounot.bnfdata.loadercallbacks.ImageLoaderCallbacks;
 import eu.gounot.bnfdata.util.Constants;
 
 public class ViewWorkActivity extends ViewObjectActivity {
@@ -73,13 +72,21 @@ public class ViewWorkActivity extends ViewObjectActivity {
         setEditorialNotes(work.getEditorialNotes());
         setExternalLinks(work.getCatalogueUrl(), work.getWikipediaUrl());
 
-        String imageUrl = work.getImageUrl();
-        if (imageUrl != null) {
-            ImageLoaderCallbacks callbacks = new ImageLoaderCallbacks(this, imageUrl);
-            getSupportLoaderManager().initLoader(IMAGE_LOADER, null, callbacks);
-        } else {
-            setImage(null);
-        }
+        // This piece of code below should ideally be used to load the image from a URL provided in
+        // the JSON data, but since for now it is not possible to obtain the URL of the selected
+        // images that are used on the data.bnf.fr pages from the RDF data (The bnf-onto:depiction
+        // property is not yet implemented), we bypass this issue by downloading the JSON data from
+        // data.bnf.fr to get the image URL and then we download the image, all this using the
+        // DataBnfFrImageLoader. If in the future the bnf-onto:depiction property is eventually
+        // implemented, we would be able to remove all this shame code and use the below piece of
+        // code instead.
+        // String imageUrl = work.getImageUrl();
+        // if (imageUrl != null) {
+        //     ImageLoaderCallbacks callbacks = new ImageLoaderCallbacks(this, imageUrl);
+        //     getSupportLoaderManager().initLoader(IMAGE_LOADER, null, callbacks);
+        // } else {
+        //     setImage(null);
+        // }
 
         hideNetworkError();
 
