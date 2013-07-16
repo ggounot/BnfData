@@ -22,7 +22,10 @@ public class DataServer {
 
     private static final String TAG = "DataServer";
 
-    private static HttpClient mHttpClient = null;
+    private static HttpClient mHttpClient = new DefaultHttpClient();
+    static {
+        HttpProtocolParams.setUserAgent(mHttpClient.getParams(), Constants.USER_AGENT);
+    }
 
     public static JSONObject getJsonObject(int objectType, String arkName) throws IOException,
             JSONException {
@@ -47,11 +50,6 @@ public class DataServer {
     private static String downloadJsonText(String url) throws IOException, JSONException {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "downloadJsonText() url=" + url);
-        }
-
-        if (mHttpClient == null) {
-            mHttpClient = new DefaultHttpClient();
-            HttpProtocolParams.setUserAgent(mHttpClient.getParams(), Constants.USER_AGENT);
         }
 
         HttpGet httpGet = new HttpGet(url);
