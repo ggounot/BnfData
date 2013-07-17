@@ -161,14 +161,16 @@ public class ViewOrganizationActivity extends ViewObjectActivity {
         }
     }
 
-    private void setHomePage(String homePage) {
-        TextView homePageDateLabelTextView = (TextView) findViewById(R.id.home_page_label);
-        TextView homePageDateTextView = (TextView) findViewById(R.id.home_page);
-        if (homePage != null) {
-            homePageDateTextView.setText(homePage);
+    private void setHomePage(String homePageUrl) {
+        TextView homePageLabelTextView = (TextView) findViewById(R.id.home_page_label);
+        TextView homePageTextView = (TextView) findViewById(R.id.home_page);
+        if (homePageUrl != null) {
+            String link = "<a href=\"" + homePageUrl + "\">" + homePageUrl + "</a>"; 
+            homePageTextView.setText(Html.fromHtml(link));
+            homePageTextView.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
-            homePageDateLabelTextView.setVisibility(View.GONE);
-            homePageDateTextView.setVisibility(View.GONE);
+            homePageLabelTextView.setVisibility(View.GONE);
+            homePageTextView.setVisibility(View.GONE);
         }
     }
 
