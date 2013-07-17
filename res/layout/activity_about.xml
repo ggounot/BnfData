@@ -29,19 +29,6 @@
             style="@style/section_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/limitations_header" />
-
-        <TextView
-            android:id="@+id/limitations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/limitations"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            style="@style/section_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/source_code_header" />
 
         <TextView

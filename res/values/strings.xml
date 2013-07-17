@@ -20,7 +20,6 @@
     <string name="db_installation_percent_sign">%</string>
 
 	<string name="generalities">Données BnF permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
-	<string name="limitations">Cette application permet de consulter uniquement les données proposées au format JSON sur <a href="http://data.bnf.fr/">data.bnf.fr</a>. Malheureusement, celles-ci ne représentent qu’une petite partie de l’ensemble des données ouvertes de la BnF.</string>
 	<string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>
 
     <string name="errmsg_no_network_connection">Vous n’êtes pas connecté à Internet.</string>
@@ -36,7 +35,6 @@
     <string name="works_header">ŒUVRES LES PLUS ÉTUDIÉES</string>
     <string name="contributors_header">CONTRIBUTEURS</string>
     <string name="generalities_header">GÉNÉRALITÉS</string>
-    <string name="limitations_header">LIMITATIONS</string>
     <string name="source_code_header">CODE SOURCE</string>
 
     <string name="birthdate_label">Naissance</string>
