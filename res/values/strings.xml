@@ -9,7 +9,7 @@
     <string name="no_result">Aucun résultat.</string>
     <string name="image_description">Illustration</string>
     <string name="query_too_short">Votre requête doit comporter au moins 3 caractères.</string>
-	<string name="retry">Réessayer</string>
+    <string name="retry">Réessayer</string>
 
     <string name="instructions">Recherchez un auteur, une œuvre ou une organisation en cliquant sur la loupe en haut à droite.</string>
 
@@ -23,8 +23,8 @@
     <string name="db_installation_percent_sign">%</string>
 
     <string name="about_version">Version 2.0 — 22/07/2013</string>
-	<string name="generalities">Auteurs et œuvres permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
-	<string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>
+    <string name="generalities">Auteurs et œuvres permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
+    <string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>
 
     <string name="errmsg_no_network_connection">Vous n’êtes pas connecté à Internet.</string>
     <string name="errmsg_data_retrieval_failed">Une erreur s’est produite lors de la récupération des données.</string>
