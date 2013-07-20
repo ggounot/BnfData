@@ -22,6 +22,7 @@
     <string name="db_installation_percentage">0</string>
     <string name="db_installation_percent_sign">%</string>
 
+    <string name="about_version">Version 2.0 — 22/07/2013</string>
 	<string name="generalities">Auteurs et œuvres permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
 	<string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>
 
