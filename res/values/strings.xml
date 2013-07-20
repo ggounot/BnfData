@@ -13,6 +13,9 @@
 
     <string name="instructions">Recherchez un auteur, une œuvre ou une organisation en cliquant sur la loupe en haut à droite.</string>
 
+    <string name="changelog_dialog_title">Quoi de neuf ?</string>
+    <string name="changelog_dialog_button_label">OK</string>
+
     <string name="db_installation_title">Finalisation de l’installation</string>
     <string name="db_installation_wait">Veuillez patienter…</string>
     <string name="db_installation_uncompress">Décompression de la base de suggestions…</string>
