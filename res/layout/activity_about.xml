@@ -63,6 +63,19 @@
             android:layout_height="wrap_content"
             android:text="@string/about_source_code"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            style="@style/section_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/changelog_header" />
+
+        <TextView
+            android:id="@+id/changelog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_changelog"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
 </ScrollView>
