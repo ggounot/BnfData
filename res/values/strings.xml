@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Données BnF</string>
+    <string name="app_name">Auteurs et œuvres</string>
 
     <string name="menu_about">À propos</string>
 
@@ -22,7 +22,7 @@
     <string name="db_installation_percentage">0</string>
     <string name="db_installation_percent_sign">%</string>
 
-	<string name="generalities">Données BnF permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
+	<string name="generalities">Auteurs et œuvres permet de consulter les données ouvertes de la Bibliothèque nationale de France.</string>
 	<string name="source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>
 
     <string name="errmsg_no_network_connection">Vous n’êtes pas connecté à Internet.</string>
@@ -32,7 +32,7 @@
     <string name="title_activity_view_author">Auteur</string>
     <string name="title_activity_view_organization">Organisation</string>
     <string name="title_activity_view_work">Œuvre</string>
-    <string name="title_activity_about">À propos de Données BnF</string>
+    <string name="title_activity_about">À propos d’Auteurs et œuvres</string>
 
     <string name="informations_header">INFORMATIONS</string>
     <string name="works_header">ŒUVRES LES PLUS ÉTUDIÉES</string>
