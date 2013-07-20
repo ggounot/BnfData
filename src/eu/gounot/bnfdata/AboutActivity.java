@@ -21,6 +21,8 @@ public class AboutActivity extends BnfDataBaseActivity {
 
         setContentView(R.layout.activity_about);
 
+        TextView generalites2CodeTextView = (TextView) findViewById(R.id.generalities_2);
+        generalites2CodeTextView.setMovementMethod(LinkMovementMethod.getInstance());
         TextView sourceCodeTextView = (TextView) findViewById(R.id.source_code);
         sourceCodeTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }

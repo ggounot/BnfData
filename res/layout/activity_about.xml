@@ -40,7 +40,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/generalities"
+            android:text="@string/about_generalities_1"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/generalities_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/about_generalities_2"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -53,7 +61,7 @@
             android:id="@+id/source_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/source_code"
+            android:text="@string/about_source_code"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
