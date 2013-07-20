@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.actionbarsherlock.view.Menu;
 
 import eu.gounot.bnfdata.database.DatabaseInstallationListener;
 import eu.gounot.bnfdata.database.DatabaseInstallationTask;
+import eu.gounot.bnfdata.dialog.ChangelogDialogFragment;
 import eu.gounot.bnfdata.util.Constants;
 
 public class MainActivity extends BnfDataBaseActivity implements DatabaseInstallationListener {
@@ -26,6 +29,8 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
     private DatabaseInstallationTask mDatabaseInstallationTask;
 
     private boolean mDatabaseInstallationMode = false;
+
+    private SharedPreferences mPreferences;
 
     private View mHomeView;
     private View mDbInstallationView;
@@ -45,6 +50,12 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
         getSupportActionBar().setHomeButtonEnabled(false);
 
         setContentView(R.layout.activity_main);
+
+        mPreferences = getSharedPreferences(Constants.PREFS_FILE_NAME, Context.MODE_PRIVATE);
+
+        if (changelogShowingIsNeeded()) {
+            showChangelog();
+        }
 
         handleDatabaseInstallation();
     }
@@ -101,6 +112,58 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
         return false;
     }
 
+    private boolean changelogShowingIsNeeded() {
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "changelogShowingIsNeeded()");
+        }
+
+        // Showing the changelog is needed if a new version of the app was installed and if this is
+        // the first launch of this new version.
+
+        // Retrieve the stored version code of the app.
+        int storedVersionCode = mPreferences.getInt(Constants.PREF_CHANGELOG_APP_VERSION_KEY, 0);
+
+        // Retrieve the current version code of the app.
+        int currentVersionCode;
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            currentVersionCode = packageInfo.versionCode;
+        } catch (NameNotFoundException e) {
+            Log.e(TAG, e.toString(), e);
+
+            // If this exception is raised, it might be raised at every launch, so we don't want to
+            // show the changelog to not bother the user.
+            return false;
+        }
+
+        return (currentVersionCode > storedVersionCode);
+    }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    private void showChangelog() {
+        // Show the changelog dialog.
+        new ChangelogDialogFragment().show(getSupportFragmentManager(), "changelog");
+
+        // Retrieve the current version code of the app.
+        int currentVersionCode;
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            currentVersionCode = packageInfo.versionCode;
+        } catch (NameNotFoundException e) {
+            Log.e(TAG, e.toString(), e);
+            return;
+        }
+
+        // Store the current version code of the app.
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        preferencesEditor.putInt(Constants.PREF_CHANGELOG_APP_VERSION_KEY, currentVersionCode);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            preferencesEditor.apply();
+        } else {
+            preferencesEditor.commit();
+        }
+    }
+
     public void handleDatabaseInstallation() {
         // Check the database setup status and install it if necessary.
         mDatabaseInstallationTask = (DatabaseInstallationTask) getLastCustomNonConfigurationInstance();
@@ -125,11 +188,9 @@ public class MainActivity extends BnfDataBaseActivity implements DatabaseInstall
 
         // Database installation is needed if it was not already fully installed
         // or if the already installed version doesn't match the current one.
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_FILE_NAME,
-                Context.MODE_PRIVATE);
-        int dbState = preferences.getInt(Constants.PREF_DB_STATE_KEY, Constants.DB_NOT_INSTALLED);
+        int dbState = mPreferences.getInt(Constants.PREF_DB_STATE_KEY, Constants.DB_NOT_INSTALLED);
         if (dbState == Constants.DB_INSTALLED) {
-            int dbVersion = preferences.getInt(Constants.PREF_DB_VERSION_KEY, 0);
+            int dbVersion = mPreferences.getInt(Constants.PREF_DB_VERSION_KEY, 0);
             return (dbVersion != Constants.DB_VERSION);
         } else {
             return true;

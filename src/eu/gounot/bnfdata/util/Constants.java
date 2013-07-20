@@ -10,6 +10,7 @@ public class Constants {
     public static final int DB_VERSION = 1;
 
     public static final String PREFS_FILE_NAME = "prefs";
+    public static final String PREF_CHANGELOG_APP_VERSION_KEY = "changelogappversion";
     public static final String PREF_DB_STATE_KEY = "dbstate";
     public static final String PREF_DB_VERSION_KEY = "dbversion";
 
