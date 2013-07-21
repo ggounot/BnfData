@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,8 @@ import org.json.JSONObject;
 import eu.gounot.bnfdata.adapter.WorkAdapter;
 import eu.gounot.bnfdata.data.Author;
 import eu.gounot.bnfdata.util.Constants;
+import eu.gounot.bnfdata.view.ExpandableTextView;
+import eu.gounot.bnfdata.view.ExpandableTextView.OnExpandListener;
 
 public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClickListener {
 
@@ -279,13 +282,26 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
 
     private void setEditorialNotes(String[][] editorialNotes) {
         TextView editorialNotesLabelTextView = (TextView) findViewById(R.id.editorial_notes_label);
-        TextView editorialNotesTextView = (TextView) findViewById(R.id.editorial_notes);
+        final ExpandableTextView editorialNotesTextView = (ExpandableTextView) findViewById(R.id.editorial_notes);
         if (editorialNotes != null) {
             String[] noteGroups = new String[editorialNotes.length];
             for (int i = 0; i < editorialNotes.length; i++) {
                 noteGroups[i] = TextUtils.join("\n", editorialNotes[i]);
             }
-            editorialNotesTextView.setText(TextUtils.join("\n\n", noteGroups));
+            final String notes = TextUtils.join("\n\n", noteGroups);
+            editorialNotesTextView.setText(notes);
+            editorialNotesTextView.setOnExpandListener(new OnExpandListener() {
+
+                @Override
+                public void onExpand() {
+                    Linkify.addLinks(editorialNotesTextView, Linkify.WEB_URLS);
+                }
+
+                @Override
+                public void onCollapse() {
+                    editorialNotesTextView.setText(notes); // unlinkify
+                }
+            });
         } else {
             editorialNotesLabelTextView.setVisibility(View.GONE);
             editorialNotesTextView.setVisibility(View.GONE);
