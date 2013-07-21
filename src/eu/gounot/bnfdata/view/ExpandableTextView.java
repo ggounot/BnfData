@@ -19,6 +19,13 @@ public class ExpandableTextView extends TextView implements OnClickListener {
     private boolean mCollapsed = true;
     private LinearGradient mTextGradient = null;
     private int mArrowHeight;
+    private boolean mMustStartExpanded = false;
+
+    private OnExpandListener mOnExpandListener;
+
+    public void setMustStartExpanded(boolean startExpanded) {
+        mMustStartExpanded = startExpanded;
+    }
 
     public ExpandableTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,11 +47,23 @@ public class ExpandableTextView extends TextView implements OnClickListener {
             mCollapsedHeight = getResources().getDimensionPixelSize(
                     R.dimen.collapsed_textview_height);
             // If the expanded height is higher than the collapsed height, we make the TextView
-            // expandable. Otherwise, it remains like a regular TextView.
+            // expandable. Otherwise, it remains like a regular TextView and we call
+            // mOnExpandListener.onExpand() since it's like it is expanded.
             if (mExpandedHeight > mCollapsedHeight) {
                 makeExpandable();
+                mExpandable = true;
+                if (mMustStartExpanded) {
+                    expand();
+                    mCollapsed = false;
+                }
             } else {
                 mExpandable = false;
+            }
+
+            if (mOnExpandListener != null) {
+                // Notify the listener that the measure is complete and whether the view is
+                // expandable.
+                mOnExpandListener.onMeasureComplete(mExpandable);
             }
         }
 
@@ -82,16 +101,39 @@ public class ExpandableTextView extends TextView implements OnClickListener {
         }
     }
 
+    public boolean isExpandable() {
+        return mExpandable;
+    }
+
     public void collapse() {
         setHeight(mCollapsedHeight);
         setBackgroundResource(R.drawable.navigation_expand);
         getPaint().setShader(mTextGradient);
+        if (mOnExpandListener != null) {
+            mOnExpandListener.onCollapse();
+        }
     }
 
     public void expand() {
         setHeight(mExpandedHeight);
         setBackgroundResource(R.drawable.navigation_collapse);
         getPaint().setShader(null);
+        if (mOnExpandListener != null) {
+            mOnExpandListener.onExpand();
+        }
+    }
+
+    public void setOnExpandListener(OnExpandListener onExpandListener) {
+        mOnExpandListener = onExpandListener;
+    }
+
+    public interface OnExpandListener {
+
+        void onMeasureComplete(boolean expandable);
+
+        void onExpand();
+
+        void onCollapse();
     }
 
 }
