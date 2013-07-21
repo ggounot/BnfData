@@ -28,9 +28,16 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
 
     private static final String TAG = "ViewAuthorActivity";
 
+    private static final String EDIT_NOTES_EXPANDED_KEY = "editorialNotesExpanded";
+    private static final String ALT_FORMS_EXPANDED_KEY = "altFormsExpanded";
+
     // Views.
     private ProgressBar mProgressBar;
     private ListView mListView;
+
+    // ExpandableTextViews states.
+    private boolean mAltFormsExpanded = false;
+    private boolean mEditorialNotesExpanded = false;
 
     @Override
     public int getObjectType() {
@@ -46,6 +53,11 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         }
 
         setContentView(R.layout.activity_view_author);
+
+        if (savedInstanceState != null) {
+            mAltFormsExpanded = savedInstanceState.getBoolean(ALT_FORMS_EXPANDED_KEY);
+            mEditorialNotesExpanded = savedInstanceState.getBoolean(EDIT_NOTES_EXPANDED_KEY);
+        }
 
         mListView = (ListView) findViewById(R.id.list);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -67,6 +79,14 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
         // Get the ARK name from the intent and load the data.
         String arkName = getIntent().getExtras().getString(Constants.INTENT_ARK_NAME_KEY);
         loadData(arkName);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(ALT_FORMS_EXPANDED_KEY, mAltFormsExpanded);
+        outState.putBoolean(EDIT_NOTES_EXPANDED_KEY, mEditorialNotesExpanded);
     }
 
     @Override
@@ -271,9 +291,26 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
 
     private void setAltForms(String[] altForms) {
         TextView altFormsLabelTextView = (TextView) findViewById(R.id.alt_forms_label);
-        TextView altFormsTextView = (TextView) findViewById(R.id.alt_forms);
+        ExpandableTextView altFormsTextView = (ExpandableTextView) findViewById(R.id.alt_forms);
         if (altForms != null) {
             altFormsTextView.setText(TextUtils.join("\n", altForms));
+            altFormsTextView.setMustStartExpanded(mAltFormsExpanded);
+            altFormsTextView.setOnExpandListener(new OnExpandListener() {
+
+                @Override
+                public void onMeasureComplete(boolean expandable) {
+                }
+
+                @Override
+                public void onExpand() {
+                    mAltFormsExpanded = true;
+                }
+
+                @Override
+                public void onCollapse() {
+                    mAltFormsExpanded = false;
+                }
+            });
         } else {
             altFormsLabelTextView.setVisibility(View.GONE);
             altFormsTextView.setVisibility(View.GONE);
@@ -290,16 +327,29 @@ public class ViewAuthorActivity extends ViewObjectActivity implements OnItemClic
             }
             final String notes = TextUtils.join("\n\n", noteGroups);
             editorialNotesTextView.setText(notes);
+            editorialNotesTextView.setMustStartExpanded(mEditorialNotesExpanded);
+            if (mEditorialNotesExpanded) {
+                Linkify.addLinks(editorialNotesTextView, Linkify.WEB_URLS);
+            }
             editorialNotesTextView.setOnExpandListener(new OnExpandListener() {
+
+                @Override
+                public void onMeasureComplete(boolean expandable) {
+                    if (!expandable) {
+                        Linkify.addLinks(editorialNotesTextView, Linkify.WEB_URLS);
+                    }
+                }
 
                 @Override
                 public void onExpand() {
                     Linkify.addLinks(editorialNotesTextView, Linkify.WEB_URLS);
+                    mEditorialNotesExpanded = true;
                 }
 
                 @Override
                 public void onCollapse() {
                     editorialNotesTextView.setText(notes); // unlinkify
+                    mEditorialNotesExpanded = false;
                 }
             });
         } else {
