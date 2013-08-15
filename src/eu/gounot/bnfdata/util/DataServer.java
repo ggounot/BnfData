@@ -20,8 +20,8 @@ public class DataServer {
 
     private static final String TAG = "DataServer";
 
-    public static JSONObject getJsonObject(int objectType, String arkName) throws IOException,
-            JSONException {
+    public static JSONObject getJsonObject(int objectType, String arkName)
+            throws MalformedURLException, IOException, JSONException {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "getJsonObject() objectType=" + objectType + " arkName=" + arkName);
         }
@@ -33,7 +33,8 @@ public class DataServer {
         return jsonObject;
     }
 
-    public static JSONArray getDataBnfFrJsonArray(String arkName) throws IOException, JSONException {
+    public static JSONArray getDataBnfFrJsonArray(String arkName) throws MalformedURLException,
+            IOException, JSONException {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "getDataBnfFrJsonArray() arkName=" + arkName);
         }
@@ -50,13 +51,24 @@ public class DataServer {
         String pageUrl = Constants.DATA_BNF_FR_PAGE_URL_PREFIX + arkName;
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(pageUrl).openConnection();
         urlConnection.setInstanceFollowRedirects(false);
-        int responseCode = urlConnection.getResponseCode();
+
+        int responseCode;
+        try {
+            responseCode = urlConnection.getResponseCode();
+        } catch (IOException e) {
+            urlConnection.disconnect();
+            throw e;
+        }
+
         if (responseCode != HttpURLConnection.HTTP_SEE_OTHER
                 && responseCode != HttpURLConnection.HTTP_MOVED_PERM) {
+            urlConnection.disconnect();
             throw new IOException("Accessing " + pageUrl
                     + " has not given a 301 or 303 redirection as expected.");
         }
+
         String redirectUrl = urlConnection.getHeaderField("Location");
+        urlConnection.disconnect();
         if (redirectUrl.charAt(redirectUrl.length() - 1) == '/') {
             redirectUrl = redirectUrl.substring(0, redirectUrl.length() - 1);
         }
@@ -72,22 +84,39 @@ public class DataServer {
         return url;
     }
 
-    private static String downloadJsonText(String url) throws IOException, JSONException {
+    private static String downloadJsonText(String url) throws MalformedURLException, IOException {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "downloadJsonText() url=" + url);
         }
 
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
         urlConnection.setRequestProperty("User-Agent", Constants.USER_AGENT);
-        InputStream inputStream = urlConnection.getInputStream();
+
+        InputStream inputStream;
+        try {
+            inputStream = urlConnection.getInputStream();
+        } catch (IOException e) {
+            urlConnection.disconnect();
+            throw e;
+        }
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder = new StringBuilder();
-        String line;
 
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+            }
+            urlConnection.disconnect();
         }
-        inputStream.close();
 
         return stringBuilder.toString();
     }
