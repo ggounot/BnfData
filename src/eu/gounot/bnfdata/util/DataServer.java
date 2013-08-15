@@ -50,6 +50,12 @@ public class DataServer {
         String pageUrl = Constants.DATA_BNF_FR_PAGE_URL_PREFIX + arkName;
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(pageUrl).openConnection();
         urlConnection.setInstanceFollowRedirects(false);
+        int responseCode = urlConnection.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_SEE_OTHER
+                && responseCode != HttpURLConnection.HTTP_MOVED_PERM) {
+            throw new IOException("Accessing " + pageUrl
+                    + " has not given a 301 or 303 redirection as expected.");
+        }
         String redirectUrl = urlConnection.getHeaderField("Location");
         if (redirectUrl.charAt(redirectUrl.length() - 1) == '/') {
             redirectUrl = redirectUrl.substring(0, redirectUrl.length() - 1);
