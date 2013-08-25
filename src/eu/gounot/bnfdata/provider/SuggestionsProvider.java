@@ -1,10 +1,15 @@
 package eu.gounot.bnfdata.provider;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -19,26 +24,16 @@ public class SuggestionsProvider extends ContentProvider {
 
     // SQL query.
     private static final String SQL_QUERY = "SELECT "
-            + "s.rowid AS " + BaseColumns._ID
-            + ", MIN(s.form) AS " + SearchManager.SUGGEST_COLUMN_TEXT_1
+            + "suggestions.rowid AS " + BaseColumns._ID
+            + ", form AS " + SearchManager.SUGGEST_COLUMN_TEXT_1
             + ", ot.label AS " + SearchManager.SUGGEST_COLUMN_TEXT_2
-            + ", s.ark_name AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA
-            + ", s.object_type_id AS " + SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA
-            + " FROM ("
-                + "SELECT ark_name, "
-                + "MIN(form_type_id) AS min_form_type_id "
-                + "FROM suggestions "
-                + "WHERE form MATCH ? "
-                + "GROUP BY ark_name"
-            + ") AS an "
-            + "INNER JOIN suggestions AS s "
-            + "ON s.ark_name = an.ark_name "
-            + "AND s.form_type_id = an.min_form_type_id "
-            + "INNER JOIN object_types AS ot "
-            + "ON s.object_type_id = ot.id "
-            + "WHERE s.form MATCH ? "
-            + "GROUP BY s.ark_name "
-            + "ORDER BY s.object_type_id ASC, s.form ASC";
+            + ", ark_name AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA
+            + ", object_type_id AS " + SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA
+            + " FROM suggestions"
+            + " INNER JOIN object_types AS ot"
+            + " ON suggestions.object_type_id = ot.id"
+            + " WHERE form MATCH ?"
+            + " ORDER BY object_type_id ASC, form_type_id ASC, form ASC";
 
     // Cursor's columns.
     public static final int CURSOR_COL_ID = 0; // _ID
@@ -139,10 +134,11 @@ public class SuggestionsProvider extends ContentProvider {
 
         SQLiteDatabase db = mDatabaseOpenHelper.getReadableDatabase();
 
-        filter = appendWildcards(filter);
-        String[] args = { filter, filter };
+        String[] args = { appendWildcards(filter) };
 
-        return db.rawQuery(SQL_QUERY, args);
+        Cursor cursor = db.rawQuery(SQL_QUERY, args);
+
+        return new UniqueArkNameCursor(cursor);
     }
 
     private String appendWildcards(String filter) {
@@ -154,6 +150,184 @@ public class SuggestionsProvider extends ContentProvider {
         }
 
         return builder.toString();
+    }
+
+    private class UniqueArkNameCursor extends CursorWrapper {
+        private int[] mPositionMap;
+        private int mCount = 0;
+        private int mPos = 0;
+
+        public UniqueArkNameCursor(Cursor cursor) {
+            super(cursor);
+
+            int cursorRowsCount = super.getCount();
+
+            // While iterating the cursor, we will add the ARK names in this HashSet. This way we
+            // will know whether an ARK name was already added so we can skip the duplicates. Since
+            // the query has returned the rows in good order, we will keep a row when its ARK name
+            // is encountered for the first time and reject the following rows that has the same ARK
+            // name.
+            HashSet<String> arkNames = new HashSet<String>(cursorRowsCount);
+
+            // This array will serve to map the positions of the CursorWrapper with those of the
+            // actual cursor.
+            mPositionMap = new int[cursorRowsCount];
+
+            // This variable will hold the currently treated object type.
+            int curObjectType = -1;
+
+            // This variable will hold the index of the currently treated form over the currently
+            // treated object type.
+            int curObjectTypeFormIndex = 0;
+
+            // These arrays will respectively hold the positions and the forms of the currently
+            // treated form over the currently treated object type.
+            Integer[] curObjectTypeFormsPos = new Integer[cursorRowsCount];
+            String[] curObjectTypeForms = new String[cursorRowsCount];
+
+            for (int i = 0; i < cursorRowsCount; i++) {
+                super.moveToPosition(i);
+
+                if (!arkNames.add(getString(CURSOR_COL_ARK_NAME))) {
+                    // This current row's ARK name was already encountered in a preceding row so we
+                    // skip this current row.
+                    continue;
+                }
+
+                int objectType = getInt(CURSOR_COL_OBJECT_TYPE);
+
+                if (objectType != curObjectType && curObjectType != -1) {
+                    // The object type changes from this row on, so we can sort the forms and map
+                    // the positions of the rows of the previous object type.
+                    sortFormsAndMapPositions(curObjectTypeFormsPos, curObjectTypeForms,
+                            curObjectTypeFormIndex);
+                }
+
+                if (objectType != curObjectType) {
+                    // The object type changes from this row on, or this is the first row, so we
+                    // initialize variables according to this new object type.
+                    curObjectType = objectType;
+                    curObjectTypeFormIndex = 0;
+
+                    if (BuildConfig.DEBUG) {
+                        Log.d(TAG, "Treating object type " + curObjectType);
+                    }
+                }
+
+                // Save the position and form of the current row.
+                curObjectTypeFormsPos[curObjectTypeFormIndex] = i;
+                curObjectTypeForms[curObjectTypeFormIndex] = getString(CURSOR_COL_FORM);
+
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "Form " + curObjectTypeForms[curObjectTypeFormIndex] + " position="
+                            + curObjectTypeFormsPos[curObjectTypeFormIndex]);
+                }
+
+                curObjectTypeFormIndex++;
+            }
+
+            // The iteration is over but the last rows corresponding to the last object type were
+            // not sorted nor mapped yet. So we do it now.
+            sortFormsAndMapPositions(curObjectTypeFormsPos, curObjectTypeForms,
+                    curObjectTypeFormIndex);
+
+            super.moveToFirst();
+        }
+
+        private void sortFormsAndMapPositions(Integer[] positions, String[] forms, int count) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Mapping positions of " + count + " forms");
+            }
+
+            // This comparator will serve to sort the indexes of the forms according to the forms.
+            FormPositionComparator comparator = new FormPositionComparator(forms, count);
+
+            // Get an array of the forms' indexes.
+            Integer[] formsIndexes = comparator.createIndexArray();
+
+            // Sort the indexes.
+            Arrays.sort(formsIndexes, comparator);
+
+            for (int j = 0; j < count; j++) {
+                // Map the actual positions according to the sorted forms' indexes.
+                mPositionMap[mCount++] = positions[formsIndexes[j]];
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return mCount;
+        }
+
+        @Override
+        public int getPosition() {
+            return mPos;
+        }
+
+        @Override
+        public boolean move(int offset) {
+            return moveToPosition(mPos + offset);
+        }
+
+        @Override
+        public boolean moveToFirst() {
+            return moveToPosition(0);
+        }
+
+        @Override
+        public boolean moveToLast() {
+            return moveToPosition(mCount - 1);
+        }
+
+        @Override
+        public boolean moveToPrevious() {
+            return moveToPosition(mPos - 1);
+        }
+
+        @Override
+        public boolean moveToNext() {
+            return moveToPosition(mPos + 1);
+        }
+
+        @Override
+        public boolean moveToPosition(int position) {
+            if (position < 0 || position >= mCount) {
+                return false;
+            }
+
+            super.moveToPosition(mPositionMap[position]);
+            mPos = position;
+
+            return true;
+        }
+
+        private class FormPositionComparator implements Comparator<Integer> {
+
+            private String[] mForms;
+            private int mCount;
+
+            public FormPositionComparator(String[] forms, int count) {
+                mForms = forms;
+                mCount = count;
+            }
+
+            public Integer[] createIndexArray() {
+                Integer[] indexes = new Integer[mCount];
+
+                for (int i = 0; i < mCount; i++) {
+                    indexes[i] = i;
+                }
+
+                return indexes;
+            }
+
+            @Override
+            public int compare(Integer lhs, Integer rhs) {
+                return mForms[lhs].compareToIgnoreCase(mForms[rhs]);
+            }
+
+        }
+
     }
 
 }
