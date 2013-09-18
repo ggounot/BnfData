@@ -1,8 +1,10 @@
 package eu.gounot.bnfdata.provider;
 
+import java.text.Collator;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Locale;
 
 import android.app.SearchManager;
 import android.content.ContentProvider;
@@ -21,6 +23,8 @@ import eu.gounot.bnfdata.database.DatabaseOpenHelper;
 public class SuggestionsProvider extends ContentProvider {
 
     private static final String TAG = "SuggestionsProvider";
+
+    private static final Collator FRENCH_COLLATOR = Collator.getInstance(Locale.FRENCH);
 
     // SQL query.
     private static final String SQL_QUERY = "SELECT "
@@ -323,7 +327,7 @@ public class SuggestionsProvider extends ContentProvider {
 
             @Override
             public int compare(Integer lhs, Integer rhs) {
-                return mForms[lhs].compareToIgnoreCase(mForms[rhs]);
+                return FRENCH_COLLATOR.compare(mForms[lhs], mForms[rhs]);
             }
 
         }
