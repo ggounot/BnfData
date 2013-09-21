@@ -5,7 +5,8 @@ public class Constants {
     public static final String ASSETS_COMPRESSED_DB_FILENAME = "suggestions.jpg";
     public static final String DB_FILENAME = "suggestions.db";
 
-    public static final int UNCOMPRESSED_DB_SIZE = 26257408;
+    public static final long UNCOMPRESSED_DB_SIZE = 26257408L;
+    public static final long REQUIRED_FREE_SPACE = UNCOMPRESSED_DB_SIZE + 1024 * 1024;
     public static final int PROGRESS_MAX = 100;
     public static final int DB_VERSION = 1;
 

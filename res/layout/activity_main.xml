@@ -2,6 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ScrollView
+        android:id="@+id/home_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -9,7 +10,6 @@
         android:scrollbarStyle="outsideOverlay" >
 
         <TextView
-            android:id="@+id/home_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableBottom="@drawable/book_and_feather"
@@ -26,5 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout="@layout/database_installation" />
+
+    <ViewStub
+        android:id="@+id/insufficient_free_space_viewstub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout="@layout/insufficient_free_space" />
 
 </merge>

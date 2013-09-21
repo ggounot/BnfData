@@ -22,6 +22,14 @@
     <string name="db_installation_percentage">0</string>
     <string name="db_installation_percent_sign">%</string>
 
+    <string name="insufficient_free_space_header">ESPACE DISQUE DISPONIBLE INSUFFISANT</string>
+    <string name="insufficient_free_space_explanation1">&lt;i>Auteurs et œuvres&lt;/i> a besoin d’un peu d’espace disque pour finaliser son installation. Essayez de désinstaller quelques applications pour libérer &lt;b>%1$s&lt;/b> d’espace.</string>
+    <string name="insufficient_free_space_explanation2">La finalisation de l’installation débutera automatiquement dès que l’espace disque nécessaire sera disponible.</string>
+    <string name="insufficient_free_space_still">Espace disque disponible toujours insuffisant</string>
+
+    <string name="unit_mb">&#8201;Mo</string>
+    <string name="unit_kb">&#8201;ko</string>
+
     <string name="about_version">Version 2.0 — 22/07/2013</string>
     <string name="about_generalities_1"><i>Auteurs et œuvres</i> permet de consulter des fiches sur un grand nombre d’auteurs, d’œuvres et d’organisations.</string>
     <string name="about_generalities_2">Les fiches sont composées avec les données ouvertes que la Bibliothèque nationale de France met à disposition sur <a href="http://data.bnf.fr">data.bnf.fr</a>.</string>
