@@ -2,6 +2,8 @@ package eu.gounot.bnfdata.util;
 
 public class Constants {
 
+    public static final String APP_VERSION = "2.1";
+
     public static final String ASSETS_COMPRESSED_DB_FILENAME = "suggestions.jpg";
     public static final String DB_FILENAME = "suggestions.db";
 
@@ -19,7 +21,8 @@ public class Constants {
     public static final int DB_INSTALL_ABORTED = 1;
     public static final int DB_INSTALLED = 2;
 
-    public static final String JSON_OBJECT_URL_FORMAT = "http://bnfdata.gounot.eu/data/2.0/%s/%s.json";
+    public static final String JSON_OBJECT_URL_FORMAT = "http://bnfdata.gounot.eu/data/"
+            + APP_VERSION + "/%s/%s.json";
     public static final String DATA_BNF_FR_PAGE_URL_PREFIX = "http://data.bnf.fr/ark:/12148/";
 
     public static final int OBJECT_TYPE_PERSON = 0;
@@ -31,5 +34,5 @@ public class Constants {
 
     public static final String INTENT_ARK_NAME_KEY = "arkname";
 
-    public static final String USER_AGENT = "BnfData-Android-App/2.0";
+    public static final String USER_AGENT = "BnfData-Android-App/" + APP_VERSION;
 }
