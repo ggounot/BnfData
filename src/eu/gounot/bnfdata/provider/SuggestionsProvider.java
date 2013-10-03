@@ -12,13 +12,12 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
 import eu.gounot.bnfdata.BuildConfig;
-import eu.gounot.bnfdata.database.DatabaseOpenHelper;
+import eu.gounot.bnfdata.util.Constants;
 
 public class SuggestionsProvider extends ContentProvider {
 
@@ -64,7 +63,16 @@ public class SuggestionsProvider extends ContentProvider {
         sUriMatcher.addURI(AUTHORITY, SEARCH_URI_PATH_QUERY, SEARCH_URI);
     }
 
-    private DatabaseOpenHelper mDatabaseOpenHelper;
+    private static native boolean nativeInit();
+
+    private native Cursor sqliteU61Query(String filename, String sql, String[] values);
+
+    static {
+        System.loadLibrary("sqlite-u61-jni");
+        nativeInit();
+    }
+
+    String mDatabasePath = null;
 
     @Override
     public boolean onCreate() {
@@ -72,7 +80,8 @@ public class SuggestionsProvider extends ContentProvider {
             Log.d(TAG, "onCreate()");
         }
 
-        mDatabaseOpenHelper = new DatabaseOpenHelper(getContext());
+        mDatabasePath = getContext().getApplicationInfo().dataDir + "/databases/"
+                + Constants.DB_FILENAME;
 
         return true;
     }
@@ -136,11 +145,13 @@ public class SuggestionsProvider extends ContentProvider {
             Log.d(TAG, "getSuggestionsCursor()");
         }
 
-        SQLiteDatabase db = mDatabaseOpenHelper.getReadableDatabase();
+        if (mDatabasePath == null) {
+            return null;
+        }
 
-        String[] args = { appendWildcards(filter) };
+        String[] values = { appendWildcards(filter) };
 
-        Cursor cursor = db.rawQuery(SQL_QUERY, args);
+        Cursor cursor = sqliteU61Query(mDatabasePath, SQL_QUERY, values);
 
         return new UniqueArkNameCursor(cursor);
     }
@@ -157,6 +168,7 @@ public class SuggestionsProvider extends ContentProvider {
     }
 
     private class UniqueArkNameCursor extends CursorWrapper {
+
         private int[] mPositionMap;
         private int mCount = 0;
         private int mPos = 0;
