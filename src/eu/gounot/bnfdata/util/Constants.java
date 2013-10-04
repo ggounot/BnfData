@@ -7,10 +7,10 @@ public class Constants {
     public static final String ASSETS_COMPRESSED_DB_FILENAME = "suggestions.jpg";
     public static final String DB_FILENAME = "suggestions.db";
 
-    public static final long UNCOMPRESSED_DB_SIZE = 26257408L;
+    public static final long UNCOMPRESSED_DB_SIZE = 26015744L;
     public static final long REQUIRED_FREE_SPACE = UNCOMPRESSED_DB_SIZE + 1024 * 1024;
     public static final int PROGRESS_MAX = 100;
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     public static final String PREFS_FILE_NAME = "prefs";
     public static final String PREF_CHANGELOG_APP_VERSION_KEY = "changelogappversion";
