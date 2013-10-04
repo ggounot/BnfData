@@ -4,6 +4,8 @@
 
 bin/
 gen/
+obj/
+libs/
 assets/suggestions.jpg
 
 ic_launcher-web.png
