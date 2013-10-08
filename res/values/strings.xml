@@ -30,7 +30,7 @@
     <string name="unit_mb">&#8201;Mo</string>
     <string name="unit_kb">&#8201;ko</string>
 
-    <string name="about_version">Version 2.1 — 22/09/2013</string>
+    <string name="about_version">Version 2.2 — 08/10/2013</string>
     <string name="about_generalities_1"><i>Auteurs et œuvres</i> permet de consulter des fiches sur un grand nombre d’auteurs, d’œuvres et d’organisations.</string>
     <string name="about_generalities_2">Les fiches sont composées avec les données ouvertes que la Bibliothèque nationale de France met à disposition sur <a href="http://data.bnf.fr">data.bnf.fr</a>.</string>
     <string name="about_source_code">Le code source de cette application est disponible sur <a href="http://github.com/ggounot/BnfData">GitHub</a>.</string>

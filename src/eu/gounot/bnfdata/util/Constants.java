@@ -2,7 +2,7 @@ package eu.gounot.bnfdata.util;
 
 public class Constants {
 
-    public static final String APP_VERSION = "2.1";
+    public static final String APP_VERSION = "2.2";
 
     public static final String ASSETS_COMPRESSED_DB_FILENAME = "suggestions.jpg";
     public static final String DB_FILENAME = "suggestions.db";
